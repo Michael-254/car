@@ -25,7 +25,7 @@
                     <div class="max-w-md mx-auto sm:max-w-7xl">
 
                         <x-success-message />
-                        <section class="m-1 p-2 w-12/12 flex flex-col rounded border sm:pt-0">
+                        <section class="m-1 p-2 w-12/12 flex flex-col rounded border sm:pt-0 text-sm">
                             <x-auth-validation-errors class="mb-4" :errors="$errors" />
                             @if($data == 0)
                             <h5 class="font-bold text-center text-green-900">Non-Conformances</h5>
@@ -68,7 +68,12 @@
                                 </div>
                                 <a href="{{route('edit',$report_id)}}" class="items-center px-3 py-2 bg-yellow-500 border  rounded-md  text-xs text-white hover:bg-yellow-800 focus:outline-none 
                                 focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150" type="submit">Amend</a>
-                                <x-button data-toggle="modal" data-target="#updateModal" class="bg-blue-600">Add Response</x-button>
+                                @if($status == 'pending')
+                                <button data-toggle="modal" data-target="#updateModal" class="items-center px-3 py-2 bg-blue-500 border  rounded-md  text-xs 
+                                    text-white hover:bg-blue-800 focus:outline-none focus:border-gray-900
+                                    focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                Add Response</button>
+                                @endif
                             </div>
                             <div class="sm:min-w-screen flex items-center justify-between mt-2 mb-3">
                                 <section class="lg:w-2/12">
@@ -149,8 +154,36 @@
                                                 <p>No Evidence was attached</p>
                                                 @endforelse
                                             </div>
+
                                             <h5 class="text-blue-700 mt-2 py-3 px-4">Auditees Response</h5>
                                             @forelse($solutions as $solution)
+                                            @if($solution->owner == 'auditee')
+                                            <div class="rounded border mt-2 py-3 px-4">
+                                                <div class="flex justify-between">
+                                                    <div>
+                                                        <label class="text-green-500">Cause {{$loop->iteration}}</label>
+                                                        <p class="form-control-static">{{$solution->cause}}</p>
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <label class="text-green-500">Proposed Corrective Action {{$loop->iteration}}</label>
+                                                    <p class="form-control-static">{{$solution->proposed_solution}}</p>
+                                                </div>
+                                                <div>
+                                                    <label class="text-green-500">Proposed Completion Date {{$loop->iteration}}</label>
+                                                    <p class="form-control-static">{{$solution->proposed_date}}</p>
+                                                </div>
+                                            </div>
+                                            @endif
+                                            @empty
+                                            <div class="rounded border mt-2 py-3 px-4">
+                                                <span class="text-red-600">No response added yet</span>
+                                            </div>
+                                            @endforelse
+
+                                            <h5 class="text-blue-700 mt-2 py-3 px-4">HOD Response</h5>
+                                            @foreach($solutions as $solution)
+                                            @if($solution->owner == 'HOD')
                                             <div class="rounded border mt-2 py-3 px-4">
                                                 <div class="flex justify-between">
                                                     <div>
@@ -167,11 +200,8 @@
                                                     <p class="form-control-static">{{$solution->proposed_date}}</p>
                                                 </div>
                                             </div>
-                                            @empty
-                                            <div class="rounded border mt-2 py-3 px-4">
-                                                <span class="text-red-600">No response added yet</span>
-                                            </div>
-                                            @endforelse
+                                            @endif
+                                            @endforeach
 
                                             <div class="rounded border mt-2 py-3 px-4">
                                                 <div class="flex justify-between">
@@ -186,6 +216,15 @@
                                                 </div>
                                             </div>
 
+                                        @if($status == 'pending')
+                                            <div class="mt-2 flex justify-end">
+                                                <a wire:click="update"
+                                                class="items-center px-3 py-2 bg-black border  rounded-md  text-xs cursor-pointer
+                                                text-white hover:bg-green-500 focus:outline-none focus:border-gray-900
+                                                 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
+                                                 Update</a>
+                                            </div>
+                                        @endif
 
                                         </section>
                                         <!-- footer -->

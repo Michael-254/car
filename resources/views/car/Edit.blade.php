@@ -29,7 +29,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="max-w-md mx-auto sm:max-w-3xl">
-                            <section class="rounded-lg shadow-sm">
+                            <section class="rounded-lg shadow-sm text-sm">
                                 <form action="{{route('update',$nonConformance)}}" method="POST">
 
                                     @method('patch')
@@ -129,6 +129,7 @@
                                             <div class="rounded border mt-2 py-3 px-4">
                                                 <h5 class="text-blue-700">Auditees Response</h5>
                                                 @forelse($nonConformance->responses as $solution)
+                                                @if($solution->owner == 'auditee')
                                                 <div class="flex flex-col mb-4">
                                                     <input type="hidden" name="solutionId[]" value="{{$solution->id}}">
                                                     <label class="text-green-500">Cause {{$loop->iteration}}</label>
@@ -142,10 +143,11 @@
                                                     <label class="text-green-500">Proposed Completion Date {{$loop->iteration}}</label>
                                                     <x-input name="proposed_date[]" type="date" class="bg-gray-300 w-3/12 h-10" value="{{$solution->proposed_date}}" />
                                                 </div>
+                                                @endif
                                                 @empty
                                                 <div class="rounded border mt-2 py-3 px-4">
                                                     <span class="text-red-600">No response added yet</span>
-                                                </div>
+                                                </div>                                               
                                                 @endforelse
                                             </div>
 

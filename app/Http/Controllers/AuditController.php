@@ -55,6 +55,8 @@ class AuditController extends Controller
 
     public function update(Request $request, Audits $nonConformance)
     {
+        abort_unless($nonConformance->status == 'pending', 403,'NOT ALLOWED TO EDIT');
+
         $data = $request->validate([
             'response_id' => 'required',
             'site' => 'required',

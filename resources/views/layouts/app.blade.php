@@ -96,51 +96,57 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     Respond to NC
                                 </p>
                             </a>
-                        </li>
-
-                        <li class="nav-item has-treeview {{ (request()->segment(1) == 'layout') ? 'menu-open' : '' }} ">
-                            <a href="#" class="nav-link {{ (request()->segment(1) == 'layout') ? 'bg-blue-700' : '' }}" data-toggle="control-sidebar">
-                                <i class="nav-icon fas fa-tachometer-alt text-white"></i>
-                                <p class="text-white">
-                                    Prepare Report
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
-                            </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon text-grey-100"></i>
-                                        <p class="text-grey-100">Short Repo</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon text-grey-100"></i>
-                                        <p class="text-grey-100">Long Repo</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+                        </li>                       
 
                         <li class="nav-item has-treeview  {{ (request()->segment(1) == 'Base') ? 'menu-open' : '' }} ">
                             <a href="#" class="nav-link {{ (request()->segment(1) == 'Base') ? 'bg-blue-700' : '' }}" data-toggle="control-sidebar">
                                 <i class="nav-icon fas fa-tachometer-alt text-white"></i>
                                 <p class="text-white">
-                                    Starter Pages
+                                    HOD Review
                                     <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a href="" class="nav-link">
-                                        <i class="far fa-circle nav-icon text-grey-100"></i>
-                                        <p class="text-grey-100">Active Page</p>
+                                        <i class="far fa-circle nav-icon text-grey-100 font-bold"></i>
+                                        <p class="text-grey-100 font-bold">Forestry</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
-                                        <i class="far fa-circle nav-icon text-grey-100"></i>
-                                        <p class="text-grey-100">Inactive Page</p>
+                                        <i class="far fa-circle nav-icon text-grey-100 font-bold"></i>
+                                        <p class="text-grey-100 font-bold">Operations</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon text-grey-100 font-bold"></i>
+                                        <p class="text-grey-100 font-bold">HR</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon text-grey-100 font-bold"></i>
+                                        <p class="text-grey-100 font-bold">IT</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon text-grey-100 font-bold"></i>
+                                        <p class="text-grey-100 font-bold">Accounts</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon text-grey-100 font-bold"></i>
+                                        <p class="text-grey-100 font-bold">Miti Magazine</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon text-grey-100 font-bold"></i>
+                                        <p class="text-grey-100 font-bold">Management</p>
                                     </a>
                                 </li>
                             </ul>

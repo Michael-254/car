@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\audits;
 use App\Models\Response as ModelsResponse;
+use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -13,32 +14,40 @@ class Response extends Component
 
     public $search = "";
     public $data = 0;
-    public $dateMade, $number, $checkbox, $auditor, $auditee, $site, $department, $clause, $files, $status, $nonconformance,$report_id;
+    public $dateMade, $number, $checkbox, $auditor, $auditee, $site, $department;
+    public $clause, $files, $status, $nonconformance,$report_id;
     public $solutions;
-    public $cause,$proposed_solution,$proposed_date;
+    public $cause,$proposed_solution,$proposed_date,$received;
 
     public function respond($id)
     {
-        $received = audits::where('id', $id)->first();
-        $this->dateMade = $received->date;
-        $this->number = $received->number;
-        $this->checkbox = $received->checkbox;
-        $this->auditor = $received->creator->name;
-        $this->auditee = $received->auditee;
-        $this->site = $received->site;
-        $this->department = $received->department;
-        $this->clause = $received->clause;
-        $this->status = $received->status;
-        $this->nonconformance = $received->report;
-        $this->report_id = $received->id;
-        $this->files = $received->images;
-        $this->solutions = $received->responses;
+        $this->received = audits::where('id', $id)->first();
+        $this->dateMade = $this->received->date;
+        $this->number = $this->received->number;
+        $this->checkbox = $this->received->checkbox;
+        $this->auditor = $this->received->creator->name;
+        $this->auditee = $this->received->auditee;
+        $this->site = $this->received->site;
+        $this->department = $this->received->department;
+        $this->clause = $this->received->clause;
+        $this->status = $this->received->status;
+        $this->nonconformance = $this->received->report;
+        $this->report_id = $this->received->id;
+        $this->files = $this->received->images;
+        $this->solutions = $this->received->responses;
         $this->data = 1;
     }
 
     public function back()
     {
         $this->reset();
+    }
+
+    public function update()
+    {
+        $this->received->update(['status' => 'Auditee responded','response_date' => Carbon::now()->toDateString()]);
+        $this->reset();
+        session()->flash('message', 'Updated and sent to HOD');
     }
 
     public function answers()

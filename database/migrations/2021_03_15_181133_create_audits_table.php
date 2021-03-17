@@ -17,8 +17,8 @@ class CreateAuditsTable extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->unsignedBigInteger('response_id');
-            $table->unsignedBigInteger('hod_id');
-            $table->unsignedBigInteger('followup_id');
+            $table->unsignedBigInteger('hod_id')->nullable();
+            $table->unsignedBigInteger('followup_id')->nullable();
             $table->string('date');
             $table->string('number');
             $table->string('auditor');
@@ -28,7 +28,7 @@ class CreateAuditsTable extends Migration
             $table->string('clause');
             $table->string('checkbox');
             $table->text('report');
-            $table->string('status')->default('open');
+            $table->string('status')->default('pending');
             $table->string('response_date')->nullable();
             $table->string('hod_date')->nullable();
             $table->string('comment')->nullable();
