@@ -78,7 +78,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->                      
+               with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
                             <a href="{{route('assigned.Task')}}" class="nav-link {{ (request()->is('My-Tasks')) ? 'active' : '' }}">
@@ -96,7 +96,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     Respond to NC
                                 </p>
                             </a>
-                        </li>                       
+                        </li>
 
                         <li class="nav-item has-treeview  {{ (request()->segment(1) == 'Base') ? 'menu-open' : '' }} ">
                             <a href="#" class="nav-link {{ (request()->segment(1) == 'Base') ? 'bg-blue-700' : '' }}" data-toggle="control-sidebar">
@@ -108,45 +108,45 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="" class="nav-link">
+                                    <a href="{{route('FR.response')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-grey-100 font-bold"></i>
                                         <p class="text-grey-100 font-bold">Forestry</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{route('OP.response')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-grey-100 font-bold"></i>
                                         <p class="text-grey-100 font-bold">Operations</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{route('HR.response')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-grey-100 font-bold"></i>
                                         <p class="text-grey-100 font-bold">HR</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{route('IT.response')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-grey-100 font-bold"></i>
                                         <p class="text-grey-100 font-bold">IT</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{route('ACC.response')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-grey-100 font-bold"></i>
                                         <p class="text-grey-100 font-bold">Accounts</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{route('MITI.response')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-grey-100 font-bold"></i>
                                         <p class="text-grey-100 font-bold">Miti Magazine</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="#" class="nav-link">
+                                    <a href="{{route('ME.response')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-grey-100 font-bold"></i>
-                                        <p class="text-grey-100 font-bold">Management</p>
+                                        <p class="text-grey-100 font-bold">M$E</p>
                                     </a>
                                 </li>
                             </ul>
@@ -159,7 +159,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     View Assigned-Tasks
                                 </p>
                             </a>
-                        </li>                       
+                        </li>
 
                         <li class="nav-item">
                             <a href="{{route('addActivity')}}" class="nav-link {{ (request()->is('Add-Activities-To-Audit')) ? 'active' : '' }}">
@@ -183,7 +183,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             <a href="{{route('Viewyear.plan')}}" class="nav-link {{ (request()->is('View-Year-Plan')) ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-eye text-white"></i>
                                 <p class="text-white">
-                                   View Yearly Plan
+                                    View Yearly Plan
                                 </p>
                             </a>
                         </li>
@@ -218,7 +218,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->
-   
+
     <!-- jQuery -->
     <script src="{{asset('parent/plugins/jquery/jquery.min.js')}}"></script>
     <!-- Bootstrap 4 -->

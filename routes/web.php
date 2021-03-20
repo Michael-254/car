@@ -6,6 +6,7 @@ use App\Http\Livewire\Response;
 use App\Http\Livewire\ViewTasks;
 use App\Http\Livewire\ViewYearPlan;
 use App\Http\Livewire\YearlyPlan;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,6 +23,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect('/login');
 });
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
+
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Verification link sent!');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 Route::middleware(['auth'])->group(function () {
     //AddActivitiesToAudit
@@ -44,6 +55,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Edit-Non-Conformance-{id}', [App\Http\Controllers\AuditController::class, 'edit'])->name('edit');
     //Update Nonconformance
     Route::patch('/update-Non-Conformance-{nonConformance}', [App\Http\Controllers\AuditController::class, 'update'])->name('update');
+    //HOD Response
+    Route::get('/HOD-Response-Operations', [App\Http\Controllers\AuditController::class, 'Operations'])->name('OP.response');
+    Route::get('/HOD-Response-Forestry', [App\Http\Controllers\AuditController::class, 'Forestry'])->name('FR.response');
+    Route::get('/HOD-Response-HR', [App\Http\Controllers\AuditController::class, 'HR'])->name('HR.response');
+    Route::get('/HOD-Response-IT', [App\Http\Controllers\AuditController::class, 'IT'])->name('IT.response');
+    Route::get('/HOD-Response-Communications', [App\Http\Controllers\AuditController::class, 'Communications'])->name('CM.response');
+    Route::get('/HOD-Response-Miti_Magazine', [App\Http\Controllers\AuditController::class, 'Miti_Magazine'])->name('MITI.response');
+    Route::get('/HOD-Response-Accounts', [App\Http\Controllers\AuditController::class, 'Accounts'])->name('ACC.response');
+    Route::get('/HOD-Response-M-E', [App\Http\Controllers\AuditController::class, 'ME'])->name('ME.response');
 });
 
 

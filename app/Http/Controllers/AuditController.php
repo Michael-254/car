@@ -55,7 +55,7 @@ class AuditController extends Controller
 
     public function update(Request $request, Audits $nonConformance)
     {
-        abort_unless($nonConformance->status == 'pending', 403,'NOT ALLOWED TO EDIT');
+        abort_unless($nonConformance->status == 'pending', 403, 'NOT ALLOWED TO EDIT');
 
         $data = $request->validate([
             'response_id' => 'required',
@@ -81,5 +81,62 @@ class AuditController extends Controller
         }
 
         return redirect('/Auditee-Response')->with('message', 'Updated');
+    }
+
+    public function Forestry()
+    {
+
+        $Selectedsite = 'Forestry';
+        return view('car.HOD_Response', compact('Selectedsite'));
+    }
+
+
+    public function Operations()
+    {
+
+        $Selectedsite = 'Operations';
+        return view('car.HOD_Response', compact('Selectedsite'));
+    }
+
+    public function HR()
+    {
+
+        $Selectedsite = 'HR';
+        return view('car.HOD_Response', compact('Selectedsite'));
+    }
+
+    public function IT()
+    {
+
+        $Selectedsite = 'IT';
+        return view('car.HOD_Response', compact('Selectedsite'));
+    }
+
+    public function Communications()
+    {
+
+        $Selectedsite = 'Communications';
+        return view('car.HOD_Response', compact('Selectedsite'));
+    }
+
+    public function Miti_Magazine()
+    {
+
+        $Selectedsite = 'Miti Magazine';
+        return view('car.HOD_Response', compact('Selectedsite'));
+    }
+
+    public function Accounts()
+    {
+
+        $Selectedsite = 'Accounts';
+        return view('car.HOD_Response', compact('Selectedsite'));
+    }
+
+    public function ME()
+    {
+
+        $Selectedsite = 'ME';
+        return view('car.HOD_Response', compact('Selectedsite'));
     }
 }
