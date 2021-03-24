@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\Followup;
 use App\Models\Audits;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -58,6 +60,9 @@ class AssignRole extends Component
 
         $this->received->update(['status' => 'follow up', 'followup_date' => $this->date_to_monitor,
                                  'followup_end_date' => $this->date_to_end_monitor,'followup_id' => $this->assigned_to]);
+       
+        $follower = User::findOrFail($this->assigned_to);                         
+        Mail::to($follower->email)->send(new Followup($follower, auth()->user()));
         $this->reset();
         session()->flash('message', 'Assigned');
     }

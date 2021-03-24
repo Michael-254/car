@@ -237,6 +237,10 @@
                                                 </div>
                                             </div>
 
+                                            <div wire:loading wire:target="update" class="text-red-500 font-bold">
+                                                Updating please wait...
+                                            </div>
+
                                             <div class="mt-2 flex justify-end">
                                                 <a wire:click="update" class="items-center px-3 py-2 bg-black border  rounded-md  text-xs cursor-pointer
                                                 text-white hover:bg-green-500 focus:outline-none focus:border-gray-900

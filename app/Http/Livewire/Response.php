@@ -2,9 +2,11 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\HODNotify;
 use App\Models\audits;
-use App\Models\Response as ModelsResponse;
+use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -19,13 +21,14 @@ class Response extends Component
     public $solutions;
     public $cause, $proposed_solution, $proposed_date, $received, $hodName, $HODcomment;
     public $followName, $followDate, $EndfollowDate;
-    public $followUpdateData;
+    public $followUpdateData, $HODMail, $respondent;
 
     public function respond($id)
     {
         $this->received = audits::where('id', $id)->first();
         $this->dateMade = $this->received->date;
         $this->number = $this->received->number;
+        $this->respondent = $this->received->response_id;
         $this->checkbox = $this->received->checkbox;
         $this->auditor = $this->received->creator->name;
         $this->auditee = $this->received->auditee;
@@ -54,6 +57,8 @@ class Response extends Component
     public function update()
     {
         $this->received->update(['status' => 'Auditee responded', 'response_date' => Carbon::now()->toDateString()]);
+        $this->HODMail = User::findOrFail($this->respondent)->HOD;
+        Mail::to($this->HODMail)->send(new HODNotify($this->HODMail, $this->auditee));
         $this->reset();
         session()->flash('message', 'Updated and sent to HOD');
     }

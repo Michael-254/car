@@ -2,8 +2,12 @@
 
 namespace App\Http\Livewire;
 
+use App\Mail\HODRejected;
+use App\Mail\HODResponded;
 use App\Models\Audits;
+use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -18,13 +22,14 @@ class HODResponse extends Component
     public $clause, $files, $status, $nonconformance, $report_id;
     public $solutions;
     public $cause, $proposed_solution, $proposed_date, $received;
-    public $decision, $HODcomment;
+    public $decision, $HODcomment, $respondent;
 
     public function respond($id)
     {
         $this->received = audits::where('id', $id)->first();
         $this->dateMade = $this->received->date;
         $this->number = $this->received->number;
+        $this->respondent = $this->received->response_id;
         $this->checkbox = $this->received->checkbox;
         $this->auditor = $this->received->creator->name;
         $this->auditee = $this->received->auditee;
@@ -41,14 +46,23 @@ class HODResponse extends Component
 
     public function back()
     {
-        $this->reset('data','received');
+        $this->reset('data', 'received');
     }
 
     public function update()
     {
-        $this->received->update(['status' => $this->decision, 'hod_date' => Carbon::now()->toDateString(), 
-        'comment' => $this->HODcomment,'hod_id' => auth()->id()]);
-        $this->reset(['decision','HODcomment','received','data']);
+        $this->received->update([
+            'status' => $this->decision, 'hod_date' => Carbon::now()->toDateString(),
+            'comment' => $this->HODcomment, 'hod_id' => auth()->id()
+        ]);
+        $AuditeeMail = User::findOrFail($this->respondent)->email;
+        if ($this->decision == 'HOD approved') {
+            Mail::to($AuditeeMail)->cc('joseph@betterglobeforestry.com', 'diana@betterglobeforestry.com')
+                ->send(new HODResponded($this->auditee, auth()->user()));
+        } else {
+            Mail::to($AuditeeMail)->send(new HODRejected($this->auditee, auth()->user()));
+        }
+        $this->reset(['decision', 'HODcomment', 'received', 'data']);
         session()->flash('message', 'Updated and sent to Auditee and Initiator');
     }
 

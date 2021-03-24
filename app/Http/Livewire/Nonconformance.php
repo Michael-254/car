@@ -2,13 +2,11 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Report;
+use App\Mail\NewNonConformance;
 use App\Models\User;
-use App\Models\audits;
 use App\Models\Checklist;
-use App\Models\images;
-use App\Models\WeeklyPlan;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -28,6 +26,7 @@ class Nonconformance extends Component
   public $checkbox;
   public $report;
   public $file, $selectedTask;
+  public $auditeeMail;
 
   protected $rules = [
     'date' => 'required',
@@ -49,6 +48,7 @@ class Nonconformance extends Component
       $this->site =  $selected->site;
       $this->auditeeN =  $selected->name;
       $this->department =  $selected->department;
+      $this->auditeeMail =  $selected->email;
       $this->unique = rand(10, 10000);
       $this->number =  $this->unique;
     }
@@ -80,6 +80,8 @@ class Nonconformance extends Component
     }
 
     Checklist::findOrFail($this->selectedTask)->update(['car' => true]);
+    Mail::to($this->auditeeMail)->send(new NewNonConformance($this->auditeeN, auth()->user()));
+
     session()->flash('message', 'Nonconformance Created.');
     return redirect()->to('/My-Tasks');
   }
