@@ -1,7 +1,7 @@
 @component('mail::message')
 # Dear {{$HOD}}
 
-{{$auditee}} responded to a Non-Conformance and request for your review.
+{{$auditee}} responded to a CAR and request for your review.
 
 Follow up to respond to it
 

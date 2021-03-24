@@ -1,7 +1,7 @@
 @component('mail::message')
 # Dear {{$auditee}}
 
-{{$auditor->name}} submitted a new Non-Conformance Report concerning you.
+{{$auditor->name}} submitted a new CAR concerning you.
 
 Follow up to respond to it
 

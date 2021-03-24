@@ -1,7 +1,7 @@
 @component('mail::message')
 # Dear {{$auditee}}
 
-{{$sender->name}} reviewed and rejected your Non-Conformance.
+{{$sender->name}} reviewed and rejected your CAR.
 
 Follow up for Correction
 

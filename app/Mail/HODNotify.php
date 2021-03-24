@@ -33,6 +33,6 @@ class HODNotify extends Mailable
     public function build()
     {
         return $this->markdown('emails.HODnotify')
-        ->subject('New Nonconformance Report Review');
+        ->subject('New CAR for Review');
     }
 }

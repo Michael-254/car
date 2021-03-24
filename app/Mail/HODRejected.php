@@ -33,6 +33,6 @@ class HODRejected extends Mailable
     public function build()
     {
         return $this->markdown('emails.HODrejected')
-        ->subject('HOD Rejected Non-conformance');
+        ->subject('Rejected CAR');
     }
 }

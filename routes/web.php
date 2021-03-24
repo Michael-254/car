@@ -38,7 +38,7 @@ Route::post('/email/verification-notification', function (Request $request) {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth', 'verified'])->group(function () {
     //AddActivitiesToAudit
     Route::get('/Add-Activities-To-Audit', AddMonitoringactivity::class)->name('addActivity');
     //YearlyPlan
