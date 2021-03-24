@@ -9,5 +9,15 @@ class Checklist extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['weekly_plans_id','title','checkbox','comment'];
+    protected $fillable = ['weekly_plans_id', 'title', 'checkbox', 'comment', 'state', 'car',];
+
+    public function nonconformance()
+    {
+        return $this->belongsTo(Audits::class, 'audit_id');
+    }
+
+    public function fails()
+    {
+        return $this->hasMany(Audits::class, 'checklist_id');
+    }
 }

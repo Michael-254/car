@@ -18,7 +18,9 @@ class CreateChecklistsTable extends Migration
             $table->foreignId('weekly_plans_id')->constrained()->cascadeOnDelete();
             $table->string('title')->nullable();
             $table->string('checkbox')->nullable();
+            $table->string('state')->nullable();
             $table->string('comment')->nullable();
+            $table->boolean('car')->default(0);
             $table->timestamps();
         });
     }

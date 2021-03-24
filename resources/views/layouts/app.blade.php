@@ -81,6 +81,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
+                            <a href="{{route('home')}}" class="nav-link {{ (request()->is('Home')) ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-calendar-alt text-white"></i>
+                                <p class="text-white">
+                                    Home
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="{{route('assigned.Task')}}" class="nav-link {{ (request()->is('My-Tasks')) ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-calendar-alt text-white"></i>
                                 <p class="text-white">
@@ -98,8 +107,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                             </a>
                         </li>
 
-                        <li class="nav-item has-treeview  {{ (request()->segment(1) == 'Base') ? 'menu-open' : '' }} ">
-                            <a href="#" class="nav-link {{ (request()->segment(1) == 'Base') ? 'bg-blue-700' : '' }}" data-toggle="control-sidebar">
+                        <li class="nav-item has-treeview">
+                            <a href="#" class="nav-link" data-toggle="control-sidebar">
                                 <i class="nav-icon fas fa-tachometer-alt text-white"></i>
                                 <p class="text-white">
                                     HOD Review
@@ -144,12 +153,36 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     </a>
                                 </li>
                                 <li class="nav-item">
+                                    <a href="{{route('CM.response')}}" class="nav-link">
+                                        <i class="far fa-circle nav-icon text-grey-100 font-bold"></i>
+                                        <p class="text-grey-100 font-bold">Communications</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
                                     <a href="{{route('ME.response')}}" class="nav-link">
                                         <i class="far fa-circle nav-icon text-grey-100 font-bold"></i>
-                                        <p class="text-grey-100 font-bold">M$E</p>
+                                        <p class="text-grey-100 font-bold">M&E</p>
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('followup')}}" class="nav-link {{ (request()->is('Assign-follow-up-Role')) ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-hand-holding-usd text-white"></i>
+                                <p class="text-white">
+                                    Assign Follow-Up Role
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('car.logs')}}" class="nav-link {{ (request()->is('CAR-Logs')) ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-book text-white"></i>
+                                <p class="text-white">
+                                    CAR logs
+                                </p>
+                            </a>
                         </li>
 
                         <li class="nav-item">

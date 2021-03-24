@@ -113,8 +113,9 @@
                                         <p class="text-red-600 font-bold">Assigned to:
                                             {{App\Models\User::find($todo->userplan->user_id)->name}}
                                         </p>
-                                        <span wire:click="assign({{$todo->id}})" class="text-green-600 font-bold hover:underline 
-                                            hover:text-yellow-500 cursor-pointer">Reassign Task</span>
+                                        <span onclick="confirm('Warning! if you unassign this,All Work Done by User on this Task will be lost') || event.stopImmediatePropagation()"
+                                              wire:click="Unassign({{$todo->id}})" class="text-green-600 font-bold hover:underline 
+                                            hover:text-yellow-500 cursor-pointer">Unassign Task</span>
                                         <div class="flex justify-end mb-1">
                                             <a href="{{route('view.tasks')}}" class="items-center px-3 py-2 font-bold text-black hover:underline">More Info</a>
                                         </div>

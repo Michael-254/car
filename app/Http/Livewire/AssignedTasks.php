@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Checklist;
 use App\Models\MAchild;
 use App\Models\User;
 use App\Models\WeeklyPlan;
@@ -18,6 +19,7 @@ class AssignedTasks extends Component
     public $taskresponse = false;
     public $selectedActivity,$selectedChild,$selectedId;
     public $action;
+    public $modal = false;
 
     public function loadMore()
     {
@@ -35,6 +37,12 @@ class AssignedTasks extends Component
        $this->selectedId = $response->id;
        $this->selectedActivity = $response->activityParent->MonitoringActivities->list;
        $this->action = MAchild::where('monitoring_activities_id','=',$response->activityParent->MonitoringActivities->id)->get();
+    }
+
+    public function viewTask($id){
+        $response = WeeklyPlan::findorFail($id);
+        $this->action = Checklist::where('weekly_plans_id','=',$id)->get();
+        $this->modal = true;
     }
 
     public function render()

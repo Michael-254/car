@@ -14,23 +14,20 @@ class AuditController extends Controller
 {
     public function taskresponse(Request $request)
     {
-        $request->validate([
-            'finding' => 'required'
-        ]);
 
         $userPlan = WeeklyPlan::where('id', '=', $request->selected)->first();
 
         $userPlan->update(['inspected' => 'yes', 'findings' => $request->finding]);
-        if ($request->finding == 'conforming') {
-            $userPlan->update(['task_completed' => true]);
+        if (in_array('not conforming', $request->state, true)) {
+            $userPlan->update(['findings' => 'not conforming']);
         } else {
-            $userPlan->update(['task_completed' => false]);
+            $userPlan->update(['findings' => 'conforming', 'task_completed' => true]);
         }
 
         foreach ($request->title as $key => $title) {
             $taskresponse = Checklist::create([
                 'weekly_plans_id' => $request->selected, 'title' => $title,
-                'checkbox' => $request->checkbox[$key], 'comment' => $request->comment[$key]
+                'checkbox' => $request->checkbox[$key], 'comment' => $request->comment[$key], 'state' => $request->state[$key]
             ]);
         }
 
@@ -55,7 +52,7 @@ class AuditController extends Controller
 
     public function update(Request $request, Audits $nonConformance)
     {
-        abort_unless($nonConformance->status == 'pending', 403, 'NOT ALLOWED TO EDIT');
+        abort_unless($nonConformance->status == 'pending' || $nonConformance->status == 'HOD declined', 403, 'NOT ALLOWED TO EDIT');
 
         $data = $request->validate([
             'response_id' => 'required',
@@ -138,5 +135,10 @@ class AuditController extends Controller
 
         $Selectedsite = 'ME';
         return view('car.HOD_Response', compact('Selectedsite'));
+    }
+
+    public function followUp()
+    {
+        return view('car.follow');
     }
 }

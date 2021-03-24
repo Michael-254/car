@@ -147,7 +147,7 @@
                                                 @empty
                                                 <div class="rounded border mt-2 py-3 px-4">
                                                     <span class="text-red-600">No response added yet</span>
-                                                </div>                                               
+                                                </div>
                                                 @endforelse
                                             </div>
 

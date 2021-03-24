@@ -82,6 +82,14 @@ class ViewYearPlan extends Component
         $this->reset(['user_id', 'date', 'assign', 'activity_in_sites_id', 'site']);
     }
 
+    public function Unassign($id)
+    {
+        $task = WeeklyPlan::where('activity_in_sites_id', '=', $id)->first();
+        $task->checks()->delete();
+        $task->delete();
+        $task = activity_in_site::findOrFail($id)->update(['checked' => false]);
+    }
+
 
 
     public function render()

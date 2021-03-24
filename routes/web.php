@@ -2,6 +2,10 @@
 
 use App\Http\Livewire\AddMonitoringactivity;
 use App\Http\Livewire\AssignedTasks;
+use App\Http\Livewire\AssignRole;
+use App\Http\Livewire\CarLogs;
+use App\Http\Livewire\ClosedCar;
+use App\Http\Livewire\MyOwnNonConform;
 use App\Http\Livewire\Response;
 use App\Http\Livewire\ViewTasks;
 use App\Http\Livewire\ViewYearPlan;
@@ -43,16 +47,22 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/View-Year-Plan', ViewYearPlan::class)->name('Viewyear.plan');
     //AssignedTask
     Route::get('/My-Tasks', AssignedTasks::class)->name('assigned.Task');
-    //Post Checklist
-    Route::get('/Task-Response', [App\Http\Controllers\AuditController::class, 'taskresponse'])->name('task.response');
     //View Tasks
     Route::get('/View-Assigned-Tasks', ViewTasks::class)->name('view.tasks');
-    //New Nonconformance
-    Route::get('/PrepareNew-Non-Conformance-{id}', [App\Http\Controllers\AuditController::class, 'nonconformance'])->name('new.audit');
+    //Assign Follow Up
+    Route::get('/Assign-follow-up-Role', AssignRole::class)->name('followup');
+    //Logs
+    Route::get('/CAR-Logs', CarLogs::class)->name('car.logs');
     //Auditee Response
     Route::get('/Auditee-Response', Response::class)->name('auditee.respond');
+    //Closed CARs
+    Route::get('/Closed-CARS', ClosedCar::class)->name('closed.car');
+    //MY Non-conformances
+    Route::get('/Home', MyOwnNonConform::class)->name('home');
     //Edit Nonconformance
     Route::get('/Edit-Non-Conformance-{id}', [App\Http\Controllers\AuditController::class, 'edit'])->name('edit');
+    //Follow Up
+    Route::get('/Follow-Up', [App\Http\Controllers\AuditController::class, 'followUp'])->name('follow');
     //Update Nonconformance
     Route::patch('/update-Non-Conformance-{nonConformance}', [App\Http\Controllers\AuditController::class, 'update'])->name('update');
     //HOD Response
@@ -64,6 +74,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/HOD-Response-Miti_Magazine', [App\Http\Controllers\AuditController::class, 'Miti_Magazine'])->name('MITI.response');
     Route::get('/HOD-Response-Accounts', [App\Http\Controllers\AuditController::class, 'Accounts'])->name('ACC.response');
     Route::get('/HOD-Response-M-E', [App\Http\Controllers\AuditController::class, 'ME'])->name('ME.response');
+    //Post Checklist
+    Route::get('/Task-Response', [App\Http\Controllers\AuditController::class, 'taskresponse'])->name('task.response');
+    //New Nonconformance
+    Route::get('/PrepareNew-Non-Conformance-{id}', [App\Http\Controllers\AuditController::class, 'nonconformance'])->name('new.audit');
 });
 
 

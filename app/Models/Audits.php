@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Http\Livewire\FollowUp;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,6 +25,16 @@ class Audits extends Model
     public function creator()
     {
         return $this->belongsTo(User::class,'user_id');
+    }
+
+    public function HODs()
+    {
+        return $this->belongsTo(User::class,'hod_id');
+    }
+
+    public function sayings()
+    {
+        return $this->hasMany(FollowUpdate::class,'audit_id');
     }
 
 }

@@ -2,13 +2,13 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\audits;
-use App\Models\Response as ModelsResponse;
+use App\Models\Audits;
+use App\Models\User;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Response extends Component
+class AssignRole extends Component
 {
     use WithPagination;
 
@@ -17,9 +17,10 @@ class Response extends Component
     public $dateMade, $number, $checkbox, $auditor, $auditee, $site, $department;
     public $clause, $files, $status, $nonconformance, $report_id;
     public $solutions;
-    public $cause, $proposed_solution, $proposed_date, $received, $hodName, $HODcomment;
-    public $followName, $followDate, $EndfollowDate;
-    public $followUpdateData;
+    public $cause, $proposed_solution, $proposed_date, $received;
+    public $decision, $HODcomment;
+    public $hodName;
+    public $assigned_to,$date_to_monitor,$date_to_end_monitor;
 
     public function respond($id)
     {
@@ -37,12 +38,8 @@ class Response extends Component
         $this->report_id = $this->received->id;
         $this->files = $this->received->images;
         $this->solutions = $this->received->responses;
-        $this->hodName = $this->received->hod_id;
+        $this->hodName = $this->received->HODs->name;
         $this->HODcomment = $this->received->comment;
-        $this->followName = $this->received->followup_id;
-        $this->followDate = $this->received->followup_date;
-        $this->EndfollowDate = $this->received->followup_end_date;
-        $this->followUpdateData = $this->received->sayings;
         $this->data = 1;
     }
 
@@ -53,45 +50,30 @@ class Response extends Component
 
     public function update()
     {
-        $this->received->update(['status' => 'Auditee responded', 'response_date' => Carbon::now()->toDateString()]);
-        $this->reset();
-        session()->flash('message', 'Updated and sent to HOD');
-    }
-
-    public function answers()
-    {
-        $validatedDate = $this->validate([
-            'cause' => 'required',
-            'proposed_solution' => 'required',
-            'proposed_date' => 'required',
+        $validated = $this->validate([
+            'date_to_monitor' => 'required',
+            'date_to_end_monitor' => 'required|after:date_to_monitor',
+            'assigned_to' => 'required',
         ]);
-        if ($this->report_id) {
-            $store = audits::find($this->report_id);
-            $store->responses()->Create([
-                'cause' => $this->cause,
-                'proposed_solution' => $this->proposed_solution,
-                'proposed_date' => $this->proposed_date,
-                'owner' => 'auditee',
-            ]);
-            session()->flash('message', 'response updated.Add another if you wish to');
-            $this->cause = "";
-            $this->proposed_solution = "";
-            $this->proposed_date = "";
-        }
-    }
 
+        $this->received->update(['status' => 'follow up', 'followup_date' => $this->date_to_monitor,
+                                 'followup_end_date' => $this->date_to_end_monitor,'followup_id' => $this->assigned_to]);
+        $this->reset();
+        session()->flash('message', 'Assigned');
+    }
 
     public function render()
     {
-        return view('car.response', [
-            'conformances' => audits::where('user_id', '=', auth()->id())
+        return view('car.assign-role', [
+            'conformances' => Audits::where('status', '=', 'HOD approved')
                 ->when($this->search != '', function ($query) {
                     $query->where('auditee', 'like', '%' . $this->search . '%')
                         ->orwhere('number', 'like', '%' . $this->search . '%')
                         ->orwhere('date', 'like', '%' . $this->search . '%');
                 })
                 ->latest()
-                ->paginate(10)
+                ->paginate(10),
+            'users' => User::all(),
         ]);
     }
 }

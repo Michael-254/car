@@ -19,6 +19,7 @@ class CreateAuditsTable extends Migration
             $table->unsignedBigInteger('response_id');
             $table->unsignedBigInteger('hod_id')->nullable();
             $table->unsignedBigInteger('followup_id')->nullable();
+            $table->unsignedBigInteger('checklist_id')->nullable();
             $table->string('date');
             $table->string('number');
             $table->string('auditor');
@@ -30,8 +31,11 @@ class CreateAuditsTable extends Migration
             $table->text('report');
             $table->string('status')->default('pending');
             $table->string('response_date')->nullable();
+            $table->string('followup_date')->nullable();
+            $table->string('followup_end_date')->nullable();
             $table->string('hod_date')->nullable();
             $table->string('comment')->nullable();
+            $table->string('mt_comment')->nullable();
             $table->timestamps();
         });
     }

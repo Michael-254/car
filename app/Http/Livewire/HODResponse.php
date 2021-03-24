@@ -46,8 +46,9 @@ class HODResponse extends Component
 
     public function update()
     {
-        $this->received->update(['status' => $this->decision, 'hod_date' => Carbon::now()->toDateString(), 'comment' => $this->HODcomment,]);
-        $this->reset(['status','HODcomment','received','data']);
+        $this->received->update(['status' => $this->decision, 'hod_date' => Carbon::now()->toDateString(), 
+        'comment' => $this->HODcomment,'hod_id' => auth()->id()]);
+        $this->reset(['decision','HODcomment','received','data']);
         session()->flash('message', 'Updated and sent to Auditee and Initiator');
     }
 

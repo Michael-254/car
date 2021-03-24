@@ -4,7 +4,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h5 class="m-0 text-green-500  text-lg">Respond to a Non-conformance</h5>
+                    <h5 class="m-0 text-green-500  text-lg">Assign CAR to Someone for Follow-up</h5>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right text-sm">
@@ -64,19 +64,10 @@
                             </div>
 
                             @else
-                            <div class="flex items-center justify-between mt-1">
-                                <div class="flex ml-1">
-                                    <span wire:click="back()" class="cursor-pointer" style="line-height: 32px;"><i class="far fa-hand-point-left"></i> Go back</span>
-                                </div>
-                                <a href="{{route('edit',$report_id)}}" class="items-center px-3 py-2 bg-yellow-500 border  rounded-md  text-xs text-white hover:bg-yellow-800 focus:outline-none 
-                                focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150" type="submit">Amend</a>
-                                @if($status == 'pending')
-                                <button data-toggle="modal" data-target="#updateModal" class="items-center px-3 py-2 bg-blue-500 border  rounded-md  text-xs 
-                                    text-white hover:bg-blue-800 focus:outline-none focus:border-gray-900
-                                    focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
-                                    Add Response</button>
-                                @endif
+                            <div class="flex ml-1">
+                                <span wire:click="back()" class="cursor-pointer" style="line-height: 32px;"><i class="far fa-hand-point-left"></i> Go back</span>
                             </div>
+
                             <div class="sm:min-w-screen flex items-center justify-between mt-2 mb-3">
                                 <section class="lg:w-2/12">
                                 </section>
@@ -210,49 +201,36 @@
                                             @endif
                                             @endforeach
 
-                                            @if($hodName != '')
                                             <div class="mt-2 flex space-x-2 rounded border py-3 px-4">
                                                 <div class="flex-1">
                                                     <span class="text-green-500 font-bold">HOD Name</span>
-                                                    <p class="form-control-static">{{App\Models\User::find($hodName)->name}}</p>
+                                                    <p class="form-control-static">{{$hodName}}</p>
                                                 </div>
                                                 <div class="flex-1">
                                                     <Span class="text-green-500 font-bold">HOD Comment</span>
                                                     <p class="form-control-static">{{$HODcomment}}</p>
                                                 </div>
                                             </div>
-                                            @endif
 
-                                            @if($status == 'follow up' || $status == 'closed')
                                             <div class="mt-2 flex space-x-2 rounded border py-3 px-4">
                                                 <div class="flex-1">
-                                                    <span class="text-green-500 font-bold">Follow Up By</span>
-                                                    <p class="form-control-static">{{App\Models\User::find($followName)->name}}</p>
+                                                    <label for="disabledSelect" class="text-green-500">Assigned Follow-up To</label>
+                                                    <select wire:model="assigned_to" type="text" class="w-full py-1 rounded-lg shadow-sm focus:outline-none focus:shadow-outline bg-gray-200 text-gray-600">
+                                                        <option value="">-- Select User --</option>
+                                                        @foreach($users as $user)
+                                                        <option value="{{$user->id}}">{{$user->name}}</option>
+                                                        @endforeach
+                                                    </select>
                                                 </div>
                                                 <div class="flex-1">
-                                                    <Span class="text-green-500 font-bold">Start Follow-up date</span>
-                                                    <p class="form-control-static">{{$followDate}}</p>
+                                                    <label for="date_to_monitor" class="text-green-500">Date to Start Follow-up</label>
+                                                    <input wire:model="date_to_monitor" type="date" class="w-full py-1 bg-gray-200 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600" />
                                                 </div>
                                                 <div class="flex-1">
-                                                    <Span class="text-green-500 font-bold">End Follow-up date</span>
-                                                    <p class="form-control-static">{{$EndfollowDate}}</p>
+                                                    <label for="date_to_monitor" class="text-green-500">Date to End Follow-up</label>
+                                                    <input wire:model="date_to_end_monitor" type="date" class="w-full py-1 bg-gray-200 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600" />
                                                 </div>
                                             </div>
-
-                                            <div class="mt-2 rounded border py-3 px-4">
-                                                <Span class="text-green-500 font-bold">Follow Up Observations</span>
-                                                @forelse($followUpdateData as $follow)
-                                                <div class="flex justify-between">
-                                                    {{$loop->iteration}}
-                                                    <span class="w-10/12 ml-1">{{$follow->saying}}</span>
-                                                    <span class="w-2/12">{{$follow->created_at->format('d-m-Y')}}</span>                                                    
-                                                </div>
-                                                @empty
-                                                <p class="text-red-500">No Observations recorded yet</p>
-                                                @endforelse
-                                            </div>
-                                            @endif
-
 
                                             <div class="rounded border mt-2 py-3 px-4">
                                                 <div class="flex justify-between">
@@ -267,14 +245,13 @@
                                                 </div>
                                             </div>
 
-                                            @if($status == 'pending')
                                             <div class="mt-2 flex justify-end">
                                                 <a wire:click="update" class="items-center px-3 py-2 bg-black border  rounded-md  text-xs cursor-pointer
                                                 text-white hover:bg-green-500 focus:outline-none focus:border-gray-900
                                                  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
-                                                    Update</a>
+                                                    Assign</a>
                                             </div>
-                                            @endif
+
 
                                         </section>
                                         <!-- footer -->
@@ -298,43 +275,6 @@
             </div>
             <!-- /.row -->
         </div><!-- /.container-fluid -->
-    </div>
-
-    <div wire:ignore.self class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">My Response</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <input type="hidden" wire:model="report_id">
-                            <label class="text-green-700">Cause</label>
-                            <textarea class="form-control" wire:model.defer="cause" placeholder="Enter Cause"></textarea>
-                            @error('cause') <span class="text-danger text-sm">{{ $message }}</span>@enderror
-                        </div>
-                        <div class="form-group">
-                            <label class="text-green-700">Proposed Corrective Action</label>
-                            <textarea class="form-control" wire:model.defer="proposed_solution" placeholder="Enter proposed_solution"></textarea>
-                            @error('proposed_solution') <span class="text-danger text-sm">{{ $message }}</span>@enderror
-                        </div>
-                        <div class="form-group">
-                            <label class="text-green-700">Proposed Completion Date</label>
-                            <input type="date" class="form-control" wire:model.defer="proposed_date" />
-                            @error('proposed_date') <span class="text-danger text-sm">{{ $message }}</span>@enderror
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <x-button type="button" class="bg-black focus:bg-black" data-dismiss="modal">Cancel</x-button>
-                    <x-button type="button" wire:click.prevent="answers()" class="bg-blue-500" data-dismiss="modal">Save</x-button>
-                </div>
-            </div>
-        </div>
     </div>
 
     <!-- /.content -->

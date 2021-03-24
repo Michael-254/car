@@ -40,6 +40,7 @@
                                         <th>CAR No.</th>
                                         <th>Auditee</th>
                                         <th>HOD Comment</th>
+                                        <th>MD Comment</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -50,6 +51,7 @@
                                     <td>{{$conformance->number}}</td>
                                     <td>{{$conformance->auditee}}</td>
                                     <td>{{$conformance->HOD_comment}}</td>
+                                    <td>{{$conformance->mt_comment}}</td>
                                     <td>{{$conformance->status}}</td>
                                     <td><i wire:click.prevent="respond({{$conformance->id}})" class="fas fa-reply-all cursor-pointer text-blue-700"></i></td>
                                 </tr>
@@ -78,14 +80,19 @@
                                 </section>
                                 <section class="lg:w-8/12 sm:w-full">
                                     <div class="rounded bg-white overflow-hidden shadow-md px-2 py-2">
+
                                         <header class="flex justify-center">
                                             <img class="w-12 h-12 rounded-full" src="{{asset('/storage/logo.png')}}" alt="logo image" />
-                                            <h5 class="mt-2 font-bold">Corrective Action Request</h5>
+                                            <h5 class="mt-2.5 font-bold">Monitoring and Evaluation Department</h5>
                                         </header>
-                                        <div class="flex justify-center space-x-2">
+                                        <div class="flex justify-center">
+                                            <h6 class="mt-2 font-bold">Corrective Action Report</h6>
+                                        </div>
+                                        <div class="flex justify-center space-x-1 mt-3">
                                             <label for="disabledSelect" class="text-green-500">Status:</label>
                                             <p class="form-control-static font-bold text-blue-700">{{$status}}</p>
                                         </div>
+
                                         <section class="p-2 w-full border rounded">
                                             <div class="rounded border py-3 px-3">
 
@@ -228,7 +235,7 @@
                                                         <p class="form-control-static">{{date("d-m-Y")}}</p>
                                                     </div>
                                                 </div>
-                                            </div>                                           
+                                            </div>
 
                                             <div class="mt-2 flex justify-end">
                                                 <a wire:click="update" class="items-center px-3 py-2 bg-black border  rounded-md  text-xs cursor-pointer
@@ -292,7 +299,7 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <x-button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</x-button>
+                    <x-button type="button" class="bg-black" data-dismiss="modal">Cancel</x-button>
                     <x-button type="button" wire:click.prevent="answers()" class="btn btn-primary" data-dismiss="modal">Save</x-button>
                 </div>
             </div>

@@ -24,7 +24,4 @@ class WeeklyPlan extends Model
         return $this->hasMany(Checklist::class,'weekly_plans_id');
     }
     
-    public function nonconformance(){
-        return $this->belongsTo(Audits::class,'audit_id');
-    }
 }

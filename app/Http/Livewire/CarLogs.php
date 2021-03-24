@@ -2,23 +2,26 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\audits;
-use App\Models\Response as ModelsResponse;
+use App\Models\Audits;
+use App\Models\User;
 use Carbon\Carbon;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class Response extends Component
+class CarLogs extends Component
 {
     use WithPagination;
 
-    public $search = "";
     public $data = 0;
     public $dateMade, $number, $checkbox, $auditor, $auditee, $site, $department;
     public $clause, $files, $status, $nonconformance, $report_id;
     public $solutions;
-    public $cause, $proposed_solution, $proposed_date, $received, $hodName, $HODcomment;
-    public $followName, $followDate, $EndfollowDate;
+    public $cause, $proposed_solution, $proposed_date, $received;
+    public $decision, $HODcomment;
+    public $hodName;
+    public $assigned_to, $date_to_monitor;
+    public $search, $filterAuditor, $filterAuditee, $filterSite;
+    public $followName, $followDate, $EndfollowDate, $mt_comment;
     public $followUpdateData;
 
     public function respond($id)
@@ -42,6 +45,7 @@ class Response extends Component
         $this->followName = $this->received->followup_id;
         $this->followDate = $this->received->followup_date;
         $this->EndfollowDate = $this->received->followup_end_date;
+        $this->mt_comment = $this->received->mt_comment;
         $this->followUpdateData = $this->received->sayings;
         $this->data = 1;
     }
@@ -53,45 +57,39 @@ class Response extends Component
 
     public function update()
     {
-        $this->received->update(['status' => 'Auditee responded', 'response_date' => Carbon::now()->toDateString()]);
-        $this->reset();
-        session()->flash('message', 'Updated and sent to HOD');
-    }
-
-    public function answers()
-    {
-        $validatedDate = $this->validate([
-            'cause' => 'required',
-            'proposed_solution' => 'required',
-            'proposed_date' => 'required',
+        $validated = $this->validate([
+            'mt_comment' => 'required',
         ]);
-        if ($this->report_id) {
-            $store = audits::find($this->report_id);
-            $store->responses()->Create([
-                'cause' => $this->cause,
-                'proposed_solution' => $this->proposed_solution,
-                'proposed_date' => $this->proposed_date,
-                'owner' => 'auditee',
-            ]);
-            session()->flash('message', 'response updated.Add another if you wish to');
-            $this->cause = "";
-            $this->proposed_solution = "";
-            $this->proposed_date = "";
-        }
-    }
 
+        $this->received->update([
+            'mt_comment' => $this->mt_comment,
+        ]);
+        $this->reset();
+        session()->flash('message', 'Assigned');
+    }
 
     public function render()
     {
-        return view('car.response', [
-            'conformances' => audits::where('user_id', '=', auth()->id())
+        return view('car.car-logs', [
+            'conformances' => Audits::where('status','!=','closed')
                 ->when($this->search != '', function ($query) {
                     $query->where('auditee', 'like', '%' . $this->search . '%')
+                        ->orwhere('auditor', 'like', '%' . $this->search . '%')
                         ->orwhere('number', 'like', '%' . $this->search . '%')
                         ->orwhere('date', 'like', '%' . $this->search . '%');
                 })
+                ->when($this->filterAuditor != '', function ($query) {
+                    $query->Where('auditor', 'like', '%' . $this->filterAuditor . '%');
+                })
+                ->when($this->filterAuditee != '', function ($query) {
+                    $query->Where('auditee', 'like', '%' . $this->filterAuditee . '%');
+                })
+                ->when($this->filterSite != '', function ($query) {
+                    $query->Where('site', 'like', '%' . $this->filterSite . '%');
+                })
                 ->latest()
-                ->paginate(10)
+                ->paginate(10),
+            'Users' => User::all(),
         ]);
     }
 }

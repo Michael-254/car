@@ -4,12 +4,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h5 class="m-0 text-green-500 text-lg">View Tasks Assigned</h5>
+                    <h5 class="m-0 text-green-500 text-lg">Weekly Tasks to Monitor</h5>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right text-sm">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Assigned Tasks</li>
+                        <li class="breadcrumb-item font-bold"><a href="#">View</a></li>
+                        <li class="breadcrumb-item active">Assigned Tasks to Follow-up</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -28,7 +28,7 @@
 
                         <section class="m-1 p-2 w-12/12 flex flex-col rounded border sm:pt-0 text-sm">
                             <x-auth-validation-errors class="px-2 py-2" :errors="$errors" />
-                
+
                             @if($taskview == false)
                             <div class="flex mb-4">
                                 <input wire:model.debounce.150ms="search" class="bg-gray-200 mr-2 h-9 rounded border" type="text" placeholder="Search..." />
@@ -58,8 +58,8 @@
                                         <th>Site</th>
                                         <th>Inspected</th>
                                         <th>Findings</th>
-                                        <th>Task Status</th>
                                         <th>Reviwer Comments</th>
+                                        <th>Task Status</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -73,12 +73,10 @@
                                     <td>{{$task->findings}}</td>
                                     <td>{{$task->comment}}</td>
                                     <td>
-                                        @if($task->task_completed)
-                                        Completed
-                                        @elseif(!$task->task_completed && $task->findings == "not conforming")
-                                        Await CAR
+                                        @if($task->inspected == 'yes')
+                                        <p>completed</p>
                                         @else
-                                        pending
+                                        <p>pending</p>
                                         @endif
                                     </td>
                                     <td class="space-x-3 text-blue-600 font-bold cursor-pointer">
@@ -125,48 +123,56 @@
                                 </div>
 
                                 <div class="px-5 py-2 mt-2 sm:px-6">
-                                    <div class="flex justify-between mt-2 space-x-5">
-                                        <span class="leading-6 w-5/12 font-medium text-gray-900">
+                                    <div class="flex mt-2 space-x-5">
+                                        <span class="leading-6 w-4/12 font-medium text-gray-900">
                                             Checklist Name
                                         </span>
-                                        <span class="leading-6 w-3/12 font-medium text-gray-900">
+                                        <span class="leading-6 w-2/12 font-medium text-gray-900">
                                             Checked
                                         </span>
-                                        <span class="leading-6 w-4/12 font-medium text-gray-900">
+                                        <span class="leading-6 w-2/12 font-medium text-gray-900">
+                                            State
+                                        </span>
+                                        <span class="leading-6 w-2/12 font-medium text-gray-900">
                                             Comment
+                                        </span>
+                                        <span class="leading-6 w-2/12 font-medium text-gray-900">
+                                            CAR
                                         </span>
                                     </div>
                                     @foreach($response->checks as $child)
-                                    <div class="flex justify-between mt-2 space-x-8">
-                                        <p class="w-5/12 text-sm text-gray-500  mr-2">
+                                    <div class="flex mt-2">
+                                        <p class="w-4/12 text-sm text-gray-500  mr-2">
                                             {{$child->title}}
                                         </p>
-                                        <p class="w-3/12 mr-2">
+                                        <p class="w-2/12 mr-2">
                                             {{$child->checkbox}}
                                         </p>
-                                        <p class="w-4/12">
+                                        <p class="w-2/12 mr-2">
+                                            {{$child->state}}
+                                        </p>
+                                        <p class="w-2/12 mr-2">
                                             {{$child->comment}}
                                         </p>
+                                        <p class="w-2/12">
+                                            @if($child->fails != "")
+                                                @foreach($child->fails as $fail)
+                                                <span class="badge badge-warning">
+                                                    CAR:{{$fail->number}}
+                                                </span>
+                                                @endforeach
+                                            @elseif($child->fails != "" && $child->state == "not conforming")
+                                                <span class="badge badge-danger">Awaiting</span>
+                                            @endif
+                                        </p>
+
 
                                     </div>
                                     @endforeach
                                 </div>
 
-                                <div class="px-5 flex justify-end items-center">
-                                    <label class="text-green-500 mt-2 mr-2">Findings:</label>
-                                    {{$response->findings}}
-                                    <p class="text-red-600 mt-3 ml-2">
-                                        @if($response->task_completed && $response->findings == 'not conforming')
-                                        CAR Intitated ({{$response->nonconformance->number}})
-                                        @elseif(!$response->task_completed && $response->findings == 'not conforming')
-                                        Await CAR
-                                        @endif
-                                    </p>
-                                </div>
-
-                                <div class="flex justify-center px-5">
-                                <h6 class="mr-2 mt-3 font-bold text-green-600">Comment: </h6>
-                                    <x-input wire:model.debouce.500ms="comment" type="text" class="w-1/3 shadow p-2 mr-2 my-2 bg-gray-300" placeholder="Add Comment." />
+                                <div class="flex px-5">
+                                    <textarea wire:model.debouce.500ms="comment" class="w-full shadow p-2 mr-2 my-2 bg-gray-100" placeholder="Add Comment."></textarea>
                                     <div class="py-2 mt-1">
                                         <x-button wire:click.prevent="comment" class="bg-black">Save</x-button>
                                     </div>

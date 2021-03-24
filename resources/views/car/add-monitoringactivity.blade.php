@@ -158,10 +158,10 @@
                     </div>
                     <div class="flex py-2 sm:px-6">
                         <div class="inline-block w-full justify-center px-4 py-4">
-                                <label class="text-sm font-bold text-blue-600">Checklist of the Activity to Monitor</label>
-                                <div class="flex justify-between">
-                                    <input wire:model.debouce.500ms="sons" type="text" class="w-full rounded border shadow p-2 mr-2 my-2" placeholder="Add Checklist.">
-                                </div>
+                            <label class="text-sm font-bold text-blue-600">Checklist of the Activity to Monitor</label>
+                            <div class="flex justify-between">
+                                <input wire:model.debouce.500ms="sons" type="text" class="w-full rounded border shadow p-2 mr-2 my-2" placeholder="Add Checklist.">
+                            </div>
                         </div>
                     </div>
                 </div>

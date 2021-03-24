@@ -16,7 +16,6 @@ class CreateWeeklyPlansTable extends Migration
         Schema::create('weekly_plans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->unsignedBigInteger('audit_id')->nullable();
             $table->string('site')->nullable();
             $table->foreignId('activity_in_sites_id')->constrained();
             $table->string('date');

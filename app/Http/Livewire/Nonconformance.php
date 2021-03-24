@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use App\Models\Report;
 use App\Models\User;
 use App\Models\audits;
+use App\Models\Checklist;
 use App\Models\images;
 use App\Models\WeeklyPlan;
 use Carbon\Carbon;
@@ -26,7 +27,7 @@ class Nonconformance extends Component
   public $clause;
   public $checkbox;
   public $report;
-  public $file,$selectedTask;
+  public $file, $selectedTask;
 
   protected $rules = [
     'date' => 'required',
@@ -48,7 +49,7 @@ class Nonconformance extends Component
       $this->site =  $selected->site;
       $this->auditeeN =  $selected->name;
       $this->department =  $selected->department;
-      $this->unique = rand(10,10000);
+      $this->unique = rand(10, 10000);
       $this->number =  $this->unique;
     }
   }
@@ -67,6 +68,7 @@ class Nonconformance extends Component
       'checkbox' => $this->checkbox,
       'report' => $this->report,
       'response_id' => $this->auditee,
+      'checklist_id' => $this->selectedTask,
     ]);
 
     if ($this->file != '') {
@@ -77,7 +79,7 @@ class Nonconformance extends Component
       ]);
     }
 
-    WeeklyPlan::findOrFail($this->selectedTask)->update(['task_completed' => true, 'audit_id' => $results->id]);
+    Checklist::findOrFail($this->selectedTask)->update(['car' => true]);
     session()->flash('message', 'Nonconformance Created.');
     return redirect()->to('/My-Tasks');
   }
@@ -91,4 +93,3 @@ class Nonconformance extends Component
     ]);
   }
 }
-

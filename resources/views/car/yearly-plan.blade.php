@@ -26,7 +26,7 @@
 
                         <x-success-message />
                         <section class="m-1 p-2 w-12/12 flex flex-col rounded border sm:pt-0">
-                        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                            <x-auth-validation-errors class="mb-4" :errors="$errors" />
                             @if($show == 1)
                             <form wire:submit.prevent="save">
                                 <div class="flex justify-center">
