@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\activity_in_site;
 use App\Models\Audits;
 use App\Models\Checklist;
+use App\Models\Image;
 use App\Models\Response;
 use App\Models\User;
 use App\Models\WeeklyPlan;
@@ -140,5 +141,13 @@ class AuditController extends Controller
     public function followUp()
     {
         return view('car.follow');
+    }
+
+    public function file($id)
+    {
+        $image = Image::find($id);
+        $filename = $image->file;
+        $path = storage_path('app/public/images/' . $filename);
+        return response()->file($path);
     }
 }

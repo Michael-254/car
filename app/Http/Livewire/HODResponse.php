@@ -22,7 +22,7 @@ class HODResponse extends Component
     public $clause, $files, $status, $nonconformance, $report_id;
     public $solutions;
     public $cause, $proposed_solution, $proposed_date, $received;
-    public $decision, $HODcomment, $respondent;
+    public $decision, $HODcomment, $respondent,$auditorEmail;
 
     public function respond($id)
     {
@@ -32,6 +32,7 @@ class HODResponse extends Component
         $this->respondent = $this->received->response_id;
         $this->checkbox = $this->received->checkbox;
         $this->auditor = $this->received->creator->name;
+        $this->auditorEmail = $this->received->creator->email;
         $this->auditee = $this->received->auditee;
         $this->site = $this->received->site;
         $this->department = $this->received->department;
@@ -60,7 +61,7 @@ class HODResponse extends Component
             Mail::to($AuditeeMail)->cc('joseph@betterglobeforestry.com', 'diana@betterglobeforestry.com')
                 ->send(new HODResponded($this->auditee, auth()->user()));
         } else {
-            Mail::to($AuditeeMail)->send(new HODRejected($this->auditee, auth()->user()));
+            Mail::to($AuditeeMail,$this->auditorEmail)->send(new HODRejected($this->auditee, auth()->user()));
         }
         $this->reset(['decision', 'HODcomment', 'received', 'data']);
         session()->flash('message', 'Updated and sent to Auditee and Initiator');

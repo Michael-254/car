@@ -156,7 +156,9 @@
                                             <div class="rounded border mt-2 py-3 px-4">
                                                 <label for="disabledSelect" class="text-green-500">Evidence</label>
                                                 @forelse ($files as $attach)
-                                                <p class="form-control-static">{{$attach->file}}</p>
+                                                <p class="form-control-static">
+                                                    <a href="{{route('view.file',$attach->id)}}" target="_blank">{{$attach->file}}</a>
+                                                </p>
                                                 @empty
                                                 <p>No Evidence was attached</p>
                                                 @endforelse
@@ -245,7 +247,7 @@
                                                 <div class="flex justify-between">
                                                     {{$loop->iteration}}
                                                     <span class="w-10/12 ml-1">{{$follow->saying}}</span>
-                                                    <span class="w-2/12">{{$follow->created_at->format('d-m-Y')}}</span>                                                    
+                                                    <span class="w-2/12">{{$follow->created_at->format('d-m-Y')}}</span>
                                                 </div>
                                                 @empty
                                                 <p class="text-red-500">No Observations recorded yet</p>

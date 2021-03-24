@@ -78,6 +78,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Task-Response', [App\Http\Controllers\AuditController::class, 'taskresponse'])->name('task.response');
     //New Nonconformance
     Route::get('/PrepareNew-Non-Conformance-{id}', [App\Http\Controllers\AuditController::class, 'nonconformance'])->name('new.audit');
+    //file
+    Route::get('/View/{id}/file', [App\Http\Controllers\AuditController::class, 'file'])->name('view.file');
 });
 
 

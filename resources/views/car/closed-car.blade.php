@@ -173,7 +173,9 @@
                                             <div class="rounded border mt-2 py-3 px-4">
                                                 <label for="disabledSelect" class="text-green-500">Evidence</label>
                                                 @forelse ($files as $attach)
-                                                <p class="form-control-static">{{$attach->file}}</p>
+                                                <p class="form-control-static">
+                                                    <a href="{{route('view.file',$attach->id)}}" target="_blank">{{$attach->file}}</a>
+                                                </p>
                                                 @empty
                                                 <p>No Evidence was attached</p>
                                                 @endforelse
