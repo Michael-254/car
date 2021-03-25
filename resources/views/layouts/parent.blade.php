@@ -79,10 +79,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-
+                   
                         <li class="nav-item">
                             <a href="{{route('home')}}" class="nav-link {{ (request()->is('Home')) ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-calendar-alt text-white"></i>
+                                <i class="nav-icon fas fa-home text-white"></i>
                                 <p class="text-white">
                                     Home
                                 </p>
@@ -103,6 +103,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <i class="nav-icon fas fa-reply-all text-white"></i>
                                 <p class="text-white">
                                     Respond to NC
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{route('Viewyear.plan')}}" class="nav-link {{ (request()->is('View-Year-Plan')) ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-eye text-white"></i>
+                                <p class="text-white">
+                                    View Yearly Plan
                                 </p>
                             </a>
                         </li>
@@ -208,15 +217,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 <i class="nav-icon fas fa-calendar-alt text-white"></i>
                                 <p class="text-white">
                                     Make Yearly Plan
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="{{route('Viewyear.plan')}}" class="nav-link {{ (request()->is('View-Year-Plan')) ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-eye text-white"></i>
-                                <p class="text-white">
-                                    View Yearly Plan
                                 </p>
                             </a>
                         </li>

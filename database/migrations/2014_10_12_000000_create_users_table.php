@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('department');
             $table->string('HOD')->nullable();
             $table->boolean('auditor')->default(0);
+            $table->boolean('LA')->default(0);
+            $table->boolean('head')->default(0);
             $table->rememberToken();
             $table->timestamps();
         });
