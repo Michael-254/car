@@ -125,7 +125,7 @@
                                 <div class="px-5 py-2 mt-2 sm:px-6">
                                     <div class="flex mt-2 space-x-5">
                                         <span class="leading-6 w-4/12 font-medium text-gray-900">
-                                            Checklist Name
+                                           Sub-activity Name
                                         </span>
                                         <span class="leading-6 w-2/12 font-medium text-gray-900">
                                             Checked
