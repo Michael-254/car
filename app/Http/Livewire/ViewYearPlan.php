@@ -13,7 +13,7 @@ use Livewire\WithPagination;
 class ViewYearPlan extends Component
 {
     use WithPagination;
-    protected $paginationTheme = 'Bootstrap';
+
     public $current;
     public $newActivity;
     public $assign = false;
@@ -28,6 +28,7 @@ class ViewYearPlan extends Component
 
     public function remove($id)
     {
+        abort_if(!auth()->user()->LA, 403, 'unauthorised action');
         $this->reset('assign');
         $activity = activity_in_site::findorFail($id);
         $activity->userplan()->delete();
@@ -37,6 +38,7 @@ class ViewYearPlan extends Component
 
     public function addNew()
     {
+        abort_if(!auth()->user()->LA, 403, 'unauthorised action');
         $this->reset('assign');
         $data = $this->validate([
             'newActivity' => 'required',
@@ -52,12 +54,14 @@ class ViewYearPlan extends Component
 
     public function assign($id)
     {
+		abort_if(!auth()->user()->LA, 403, 'unauthorised action');
         $this->assign = true;
         $this->activity_in_sites_id = $id;
     }
 
     public function assignTask()
     {
+        abort_if(!auth()->user()->LA, 403, 'unauthorised action');
         $plan = $this->validate([
             'user_id' => 'required',
             'date' => 'required',
@@ -84,6 +88,7 @@ class ViewYearPlan extends Component
 
     public function Unassign($id)
     {
+        abort_if(!auth()->user()->LA, 403, 'unauthorised action');
         $task = WeeklyPlan::where('activity_in_sites_id', '=', $id)->first();
         $task->checks()->delete();
         $task->delete();
@@ -95,14 +100,14 @@ class ViewYearPlan extends Component
     public function render()
     {
         if ($this->current != "") {
-            return view('CAR.view-year-plan', [
+            return view('car.view-year-plan', [
                 'plans' => Weeks::paginate(7),
                 'todos' => activity_in_site::where('site_in_weeks_id', '=', $this->current)->get(),
                 'lists' => MonitoringActivity::all(),
                 'Users' => User::all(),
             ]);
         } else {
-            return view('CAR.view-year-plan', [
+            return view('car.view-year-plan', [
                 'plans' => Weeks::paginate(7),
                 'lists' => MonitoringActivity::all(),
             ]);

@@ -70,13 +70,13 @@ class YearlyPlan extends Component
     public function render()
     {
         if ($this->individual == 1) {
-            return view('CAR.yearly-plan', [
+            return view('car.yearly-plan', [
                 'Week_numbers' =>  Weeks::all(),
                 'lists' =>  MonitoringActivity::all(),
                 'individulActivities' => activity_in_site::where('site_in_weeks_id', '=', $this->site_in_weeks_id)->get(),
             ]);
         } else {
-            return view('CAR.yearly-plan', [
+            return view('car.yearly-plan', [
                 'Week_numbers' =>  Weeks::all(),
                 'lists' =>  MonitoringActivity::all(),
             ]);
