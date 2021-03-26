@@ -254,6 +254,7 @@
                                                 <div class="flex-1">
                                                     <Span class="text-green-500 font-bold">End Follow-up date</span>
                                                     <p class="form-control-static">{{$EndfollowDate}}</p>
+                                                    <h5 data-toggle="modal" data-target="#exampleModal" class="badge badge-warning cursor-pointer uppercase">Update Date</h5>
                                                 </div>
                                             </div>
 
@@ -306,6 +307,31 @@
             </div>
             <!-- /.row -->
         </div><!-- /.container-fluid -->
+    </div>
+
+    <div wire:ignore.self class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-green-500" id="exampleModalLabel">Change End of Follow Up Date</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true close-btn">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="exampleFormControlInput2" class="text-green-500 font-bold">New Date</label>
+                            <x-input wire:model="new_date" class="w-full form-control" type="date" />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <x-button class="bg-black" data-dismiss="modal">Close</x-button>
+                    <x-button wire:click.prevent="change" data-dismiss="modal">Save changes</x-button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- /.content -->

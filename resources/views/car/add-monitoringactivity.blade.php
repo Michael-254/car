@@ -44,7 +44,7 @@
                                     <div class="rounded border shadow p-3 my-2">
                                         <div class="flex my-2">
                                             <div class="flex w-9/12">
-                                                <p class="font-bold text-green-500">Activity:</p>
+                                                <p class="font-bold text-green-500">Main Activity:</p>
                                                 <p wire:click.prevent="details({{$activity->id}})" data-toggle="modal" data-target="#exampleModal" class="mx-1 py-0.5 text-sm text-gray-800 font-semibold cursor-pointer hover:underline">
                                                     {{$activity->list}}
                                                 </p>
@@ -67,7 +67,7 @@
 
                             @else
                             <div class="bg-white shadow overflow-hidden sm:rounded-lg">
-                                <h5 class="px-3 py-2 sm:px-6 text-green-500">Add Checklist for the Activity to Monitor</h5>
+                                <h5 class="px-3 py-2 sm:px-6 text-green-500">Add list of activities under main Activity to Monitor</h5>
                                 <div class="flex">
                                     <div class="px-5 py-2 sm:px-6">
                                         <h6 class="leading-6 font-medium text-blue-600">
@@ -84,7 +84,7 @@
                                 <div class="flex py-2 sm:px-6">
                                     <div class="inline-block w-full justify-center px-4 py-4">
                                         <form wire:submit.prevent="addsons">
-                                            <label class="text-sm font-bold text-blue-600">Checklist of the Activity to Monitor</label>
+                                            <label class="text-sm font-bold text-blue-600">list of activities under main Activity to Monitor</label>
                                             <div class="flex justify-between">
                                                 <input wire:model.debouce.500ms="sons" type="text" class="w-full rounded border shadow p-2 mr-2 my-2" placeholder="Add Checklist.">
                                                 <div class="py-2 mt-1">
@@ -133,7 +133,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title text-green-500" id="exampleModalLabel">Add/Remove checklist</h5>
+                    <h5 class="modal-title text-green-500" id="exampleModalLabel">Add/Remove list of Activities</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true close-btn">×</span>
                     </button>
@@ -141,7 +141,7 @@
                 <div class="modal-body">
                     <div class="px-5 py-2 mt-2 sm:px-6">
                         <h6 class="leading-6 font-medium text-blue-500 text-sm">
-                            Checklist Name
+                            Activity Name
                         </h6>
                         @if($modal == 1)
                         @foreach($childs as $child)
@@ -158,7 +158,7 @@
                     </div>
                     <div class="flex py-2 sm:px-6">
                         <div class="inline-block w-full justify-center px-4 py-4">
-                            <label class="text-sm font-bold text-blue-600">Checklist of the Activity to Monitor</label>
+                            <label class="text-sm font-bold text-blue-600">New activity under main Activity to Monitor</label>
                             <div class="flex justify-between">
                                 <input wire:model.debouce.500ms="sons" type="text" class="w-full rounded border shadow p-2 mr-2 my-2" placeholder="Add Checklist.">
                             </div>

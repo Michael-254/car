@@ -22,7 +22,7 @@ class CarLogs extends Component
     public $assigned_to, $date_to_monitor;
     public $search, $filterAuditor, $filterAuditee, $filterSite;
     public $followName, $followDate, $EndfollowDate, $mt_comment;
-    public $followUpdateData;
+    public $followUpdateData, $new_date;
 
     public function respond($id)
     {
@@ -68,10 +68,23 @@ class CarLogs extends Component
         session()->flash('message', 'Assigned');
     }
 
+    public function change()
+    {
+        $validated = $this->validate([
+            'new_date' => 'required',
+        ]);
+
+        $this->received->update([
+            'followup_end_date' => $this->new_date,
+        ]);
+        $this->reset();
+        session()->flash('message', 'Date Updated');
+    }
+
     public function render()
     {
         return view('car.car-logs', [
-            'conformances' => Audits::where('status','!=','closed')
+            'conformances' => Audits::where('status', '!=', 'closed')
                 ->when($this->search != '', function ($query) {
                     $query->where('auditee', 'like', '%' . $this->search . '%')
                         ->orwhere('auditor', 'like', '%' . $this->search . '%')
