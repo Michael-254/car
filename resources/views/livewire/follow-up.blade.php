@@ -30,7 +30,7 @@
 
                             @if($data == 0)
                             <h5 class="font-bold text-center text-green-900">Non-Conformances</h5>
-                            <input wire:model="search" type="text" class="w-1/4 rounded border h-8 bg-gray-200 mb-2" placeholder="Search" />
+                            <input type="text" class="w-1/4 rounded border h-8 bg-gray-200 mb-2" placeholder="Search" />
                             @if($conformances->count()==0)
                             <p class="text-center text-orange-500 mt-2">No Received Non-comformance</p>
                             @else
