@@ -74,7 +74,7 @@
                                                 @forelse($plan->sitess as $plan)
                                                 <div class="m-1 p-2 w-full flex flex-col rounded border {{$current == $plan->id ? 'bg-green-300' : ''}} 
                                                 bg-gray-200 sm:pt-0">
-                                                    <a wire:click.prevent="selected({{$plan->id}})" class="cursor-pointer focus:bg-blue-600">
+                                                    <a wire:click.prevent="selected({{$plan}})" class="cursor-pointer focus:bg-blue-600">
                                                         {{$plan->site}}</a>
                                                 </div>
                                                 @empty

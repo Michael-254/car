@@ -19,10 +19,11 @@ class ViewYearPlan extends Component
     public $assign = false;
     public $activity_in_sites_id, $user_id, $date, $site;
 
-    public function selected($id)
+    public function selected($plan)
     {
+        abort_if(auth()->user()->site != $plan['site'] && auth()->user()->head == false, 403);
         $this->reset('assign');
-        $this->current = $id;
+        $this->current = $plan['id'];
     }
 
 
@@ -54,7 +55,7 @@ class ViewYearPlan extends Component
 
     public function assign($id)
     {
-		abort_if(!auth()->user()->LA, 403, 'unauthorised action');
+        abort_if(!auth()->user()->LA, 403, 'unauthorised action');
         $this->assign = true;
         $this->activity_in_sites_id = $id;
     }
@@ -104,7 +105,7 @@ class ViewYearPlan extends Component
                 'plans' => Weeks::paginate(7),
                 'todos' => activity_in_site::where('site_in_weeks_id', '=', $this->current)->get(),
                 'lists' => MonitoringActivity::all(),
-                'Users' => User::all(),
+                'Users' => User::where('auditee', true)->get(),
             ]);
         } else {
             return view('car.view-year-plan', [

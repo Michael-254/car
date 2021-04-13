@@ -66,7 +66,7 @@ class AuditController extends Controller
 
         $updating = $nonConformance->update($data);
         $auditee = User::findOrFail($request->response_id)->name;
-        $nonConformance->update(['auditee' => $auditee]);
+        $nonConformance->update(['auditee' => $auditee,  'status' => 'Auditee responded']);
 
         if ($request->solutionId) {
             foreach ($request->solutionId as $key => $solutionId) {

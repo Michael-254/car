@@ -86,7 +86,7 @@
                                         <form wire:submit.prevent="addsons">
                                             <label class="text-sm font-bold text-blue-600">list of activities under main Activity to Monitor</label>
                                             <div class="flex justify-between">
-                                                <input wire:model.debouce.500ms="sons" type="text" class="w-full rounded border shadow p-2 mr-2 my-2" placeholder="Add Checklist.">
+                                                <input wire:model.debouce.500ms="sons" type="text" class="w-full rounded border shadow p-2 mr-2 my-2" placeholder="Type here...">
                                                 <div class="py-2 mt-1">
                                                     <x-button type="submit">Add</x-button>
                                                 </div>

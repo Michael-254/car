@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('site');
             $table->string('department');
             $table->string('HOD')->nullable();
+            $table->boolean('auditee')->default(0);
             $table->boolean('auditor')->default(0);
             $table->boolean('LA')->default(0);
             $table->boolean('head')->default(0);

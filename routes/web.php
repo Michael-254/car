@@ -46,10 +46,10 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/Add-Activities-To-Audit', AddMonitoringactivity::class)->name('addActivity');
             //YearlyPlan
             Route::get('/Yearly-Plan', YearlyPlan::class)->name('yearly.plan');
-            //Assign Follow Up
-            Route::get('/Assign-follow-up-Role', AssignRole::class)->name('followup');
             //View Tasks
             Route::get('/View-Assigned-Tasks', ViewTasks::class)->name('view.tasks');
+            //Assign Follow Up
+            Route::get('/Assign-follow-up-Role', AssignRole::class)->name('followup');
         });
         Route::middleware(['HOD'])->group(function () {
             //HOD Response
