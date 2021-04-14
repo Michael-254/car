@@ -5,9 +5,12 @@ namespace App\Http\Livewire;
 use App\Models\MAchild;
 use App\Models\MonitoringActivity;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class AddMonitoringactivity extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
     public $list, $sons;
     public $listId, $listName;
     public $show = 1;
@@ -16,6 +19,7 @@ class AddMonitoringactivity extends Component
 
     public function addActivity()
     {
+        
         $validatedData = $this->validate([
             'list' => 'required|min:6',
         ]);

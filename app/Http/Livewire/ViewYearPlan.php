@@ -13,6 +13,7 @@ use Livewire\WithPagination;
 class ViewYearPlan extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $current;
     public $newActivity;
@@ -109,7 +110,7 @@ class ViewYearPlan extends Component
             ]);
         } else {
             return view('car.view-year-plan', [
-                'plans' => Weeks::paginate(7),
+                'plans' => Weeks::paginate(2),
                 'lists' => MonitoringActivity::all(),
             ]);
         }
