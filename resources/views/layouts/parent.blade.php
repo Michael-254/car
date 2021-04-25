@@ -99,6 +99,15 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         </li>
 
                         <li class="nav-item">
+                            <a href="{{route('non.IDconform')}}" class="nav-link {{ (request()->is('Non-confomance-NonID')) ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-book text-white"></i>
+                                <p class="text-white">
+                                    New Non-conformance
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="{{route('auditee.respond')}}" class="nav-link {{(request()->segment(1) == 'Auditee-Response') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-reply-all text-white"></i>
                                 <p class="text-white">

@@ -6,6 +6,7 @@ use App\Http\Livewire\AssignRole;
 use App\Http\Livewire\CarLogs;
 use App\Http\Livewire\ClosedCar;
 use App\Http\Livewire\MyOwnNonConform;
+use App\Http\Livewire\NonIdNonconformance;
 use App\Http\Livewire\Response;
 use App\Http\Livewire\ViewTasks;
 use App\Http\Livewire\ViewYearPlan;
@@ -88,6 +89,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Home', MyOwnNonConform::class)->name('home');
     //file
     Route::get('/View/{id}/file', [App\Http\Controllers\AuditController::class, 'file'])->name('view.file');
+    //NonId Nonconformance
+    Route::get('/Non-confomance-NonID', NonIdNonconformance::class)->name('non.IDconform');
 });
 
 
