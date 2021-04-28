@@ -16,6 +16,16 @@
         </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
+    <div wire:loading wire:target="update">
+        <div style="display: flex; justify-content: center; align-items: center; background-color: black; position:fixed; 
+              top: 0px; left: 0px; z-index: 9999; width: 100%; height: 100%; opacity: .75;">
+            <div class="la-ball-scale-ripple-multiple">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
 
     <!-- Main content -->
     <div class="content">
@@ -68,13 +78,13 @@
                                 <div class="flex ml-1">
                                     <span wire:click="back()" class="cursor-pointer" style="line-height: 32px;"><i class="far fa-hand-point-left"></i> Go back</span>
                                 </div>
-                              
-                              @if(auth()->user()->LA)
+
+                                @if(auth()->user()->LA)
                                 <button data-toggle="modal" data-target="#updateModal" class="items-center px-3 py-2 bg-blue-500 border  rounded-md  text-xs 
                                     text-white hover:bg-blue-800 focus:outline-none focus:border-gray-900
                                     focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                                     Add Response</button>
-                              @endif
+                                @endif
 
                             </div>
                             <div class="sm:min-w-screen flex items-center justify-between mt-2 mb-3">
@@ -245,14 +255,14 @@
                                                 Updating please wait...
                                             </div>
 
-                                      @if(auth()->user()->LA)
+                                            @if(auth()->user()->LA)
                                             <div class="mt-2 flex justify-end">
                                                 <a wire:click="update" class="items-center px-3 py-2 bg-black border  rounded-md  text-xs cursor-pointer
                                                 text-white hover:bg-green-500 focus:outline-none focus:border-gray-900
                                                  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
                                                     Update</a>
                                             </div>
-                                     @endif
+                                            @endif
 
 
                                         </section>

@@ -4,7 +4,6 @@ namespace App\Http\Livewire;
 
 use App\Mail\NewNonConformance;
 use App\Models\User;
-use App\Models\Checklist;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Livewire\WithFileUploads;
@@ -72,7 +71,7 @@ class NonIdNonconformance extends Component
     ]);
 
     if ($this->file != '') {
-      $name = md5($this->file . microtime()) . '.' . $this->file->extension();
+      $name = $this->file->getClientOriginalName();
       $this->file->storeAs('public/images', $name);
       $results->images()->Create([
         'file' => $name,
@@ -82,7 +81,7 @@ class NonIdNonconformance extends Component
     Mail::to($this->auditeeMail)->send(new NewNonConformance($this->auditeeN, auth()->user()));
 
     session()->flash('message', 'Nonconformance Created.');
-    return redirect()->to('/My-Tasks');
+    return redirect()->to('/Auditee-Response');
   }
 
 

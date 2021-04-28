@@ -17,6 +17,16 @@
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
+        <div wire:loading wire:target="save">
+            <div style="display: flex; justify-content: center; align-items: center; background-color: black; position:fixed; 
+              top: 0px; left: 0px; z-index: 9999; width: 100%; height: 100%; opacity: .75;">
+                <div class="la-ball-scale-ripple-multiple">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
 
         <!-- Main content -->
         <div class="content">
@@ -27,7 +37,7 @@
                             <section class="rounded-lg shadow-sm">
                                 <form wire:submit.prevent="save">
                                     <div class="rounded bg-white overflow-hidden shadow-md px-2 py-2 mb-2 text-sm">
-                                    
+
                                         <header class="flex justify-center">
                                             <img class="w-12 h-12 rounded-full" src="{{asset('/storage/logo.png')}}" alt="logo image" />
                                             <h5 class="mt-2.5 font-bold">Monitoring and Evaluation Department</h5>
