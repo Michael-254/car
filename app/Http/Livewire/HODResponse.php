@@ -94,9 +94,9 @@ class HODResponse extends Component
         return view('livewire.h-o-d-response', [
             'conformances' => Audits::where([['department', '=', $this->Selectedsite], ['status', '=', 'Auditee responded']])
                 ->when($this->search != '', function ($query) {
-                    $query->where('auditee', 'like', '%' . $this->search . '%')
-                        ->orwhere('number', 'like', '%' . $this->search . '%')
-                        ->orwhere('date', 'like', '%' . $this->search . '%');
+                    $query->where([['auditee', 'like', '%' . $this->search . '%'],['department', '=', $this->Selectedsite], ['status', '=', 'Auditee responded']])
+                        ->orwhere([['number', 'like', '%' . $this->search . '%'],['department', '=', $this->Selectedsite], ['status', '=', 'Auditee responded']])
+                        ->orwhere([['date', 'like', '%' . $this->search . '%'],['department', '=', $this->Selectedsite], ['status', '=', 'Auditee responded']]);
                 })
                 ->latest()
                 ->paginate(10),

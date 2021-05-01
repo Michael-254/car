@@ -72,9 +72,9 @@ class AssignRole extends Component
         return view('car.assign-role', [
             'conformances' => Audits::where('status', '=', 'HOD approved')
                 ->when($this->search != '', function ($query) {
-                    $query->where('auditee', 'like', '%' . $this->search . '%')
-                        ->orwhere('number', 'like', '%' . $this->search . '%')
-                        ->orwhere('date', 'like', '%' . $this->search . '%');
+                    $query->where([['auditee', 'like', '%' . $this->search . '%'],['status', '=', 'HOD approved']])
+                        ->orwhere([['number', 'like', '%' . $this->search . '%'],['status', '=', 'HOD approved']])
+                        ->orwhere([['date', 'like', '%' . $this->search . '%'],['status', '=', 'HOD approved']]);
                 })
                 ->latest()
                 ->paginate(10),

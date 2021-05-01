@@ -12,7 +12,7 @@ use Livewire\Component;
 
 class NonIdNonconformance extends Component
 {
-    use WithFileUploads;
+  use WithFileUploads;
 
   public $unique;
   public $auditee;
@@ -72,25 +72,31 @@ class NonIdNonconformance extends Component
 
     if ($this->file != '') {
       $name = $this->file->getClientOriginalName();
-      $this->file->storeAs('public/images', $name);
-      $results->images()->Create([
+      $moved = $this->file->storeAs('public/images', $name);
+      $done = $results->images()->Create([
         'file' => $name,
       ]);
+
+      if ($moved && $done) {
+        Mail::to($this->auditeeMail)->send(new NewNonConformance($this->auditeeN, auth()->user()));
+        session()->flash('message', 'Nonconformance Created.');
+        return redirect()->to('/Auditee-Response');
+      }
+    } else {
+      Mail::to($this->auditeeMail)->send(new NewNonConformance($this->auditeeN, auth()->user()));
+      session()->flash('message', 'Nonconformance Created.');
+      return redirect()->to('/Auditee-Response');
     }
 
-    Mail::to($this->auditeeMail)->send(new NewNonConformance($this->auditeeN, auth()->user()));
-
-    session()->flash('message', 'Nonconformance Created.');
-    return redirect()->to('/Auditee-Response');
   }
 
 
-    public function render()
-    {
-        return view('car.non-id-nonconformance', [
-            'users' =>  User::where('auditee', true)->get(),
-            $this->auditor = auth()->user()->name,
-            $this->date = Carbon::now()->toDateString(),
-          ]);
-    }
+  public function render()
+  {
+    return view('car.non-id-nonconformance', [
+      'users' =>  User::where('auditee', true)->get(),
+      $this->auditor = auth()->user()->name,
+      $this->date = Carbon::now()->toDateString(),
+    ]);
+  }
 }

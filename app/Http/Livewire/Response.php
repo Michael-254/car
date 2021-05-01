@@ -91,9 +91,9 @@ class Response extends Component
         return view('car.response', [
             'conformances' => audits::where('user_id', '=', auth()->id())
                 ->when($this->search != '', function ($query) {
-                    $query->where('auditee', 'like', '%' . $this->search . '%')
-                        ->orwhere('number', 'like', '%' . $this->search . '%')
-                        ->orwhere('date', 'like', '%' . $this->search . '%');
+                    $query->where([['auditee', 'like', '%' . $this->search . '%'], ['user_id', '=', auth()->id()]])
+                        ->orwhere([['number', 'like', '%' . $this->search . '%'], ['user_id', '=', auth()->id()]])
+                        ->orwhere([['date', 'like', '%' . $this->search . '%'], ['user_id', '=', auth()->id()]]);
                 })
                 ->latest()
                 ->paginate(10)
