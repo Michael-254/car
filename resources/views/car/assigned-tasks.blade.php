@@ -184,11 +184,13 @@
                                 <div class="mt-2 px-4">
                                     @if($child->state == "not conforming")
                                     <a href="{{route('new.audit',$child->id)}}" class="badge badge-primary">New CAR</a>
-                                        @foreach($child->fails as $fail)
-                                        <span class="badge badge-warning">
-                                            CAR:{{$fail->number}}
-                                        </span>
-                                        @endforeach
+                                    @foreach($child->fails as $fail)
+                                    <span class="badge badge-warning">
+                                        CAR:{{$fail->number}}
+                                    </span>
+                                    @endforeach
+                                    @elseif($child->state == "not checked")
+                                    <p class="text-sm badge badge-danger">Not checked</p>
                                     @else
                                     <p class="text-sm badge badge-success">Conforming</p>
                                     @endif

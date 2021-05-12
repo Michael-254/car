@@ -88,15 +88,27 @@ class Response extends Component
 
     public function render()
     {
-        return view('car.response', [
-            'conformances' => audits::where('user_id', '=', auth()->id())
+        if (auth()->user()->RA) {
+            $confomances = audits::latest()
+                ->when($this->search != '', function ($query) {
+                    $query->where('auditee', 'like', '%' . $this->search . '%')
+                        ->orwhere('number', 'like', '%' . $this->search . '%')
+                        ->orwhere('date', 'like', '%' . $this->search . '%');
+                })
+                ->paginate(10);
+        } else {
+            $confomances = audits::where('user_id', '=', auth()->id())
                 ->when($this->search != '', function ($query) {
                     $query->where([['auditee', 'like', '%' . $this->search . '%'], ['user_id', '=', auth()->id()]])
                         ->orwhere([['number', 'like', '%' . $this->search . '%'], ['user_id', '=', auth()->id()]])
                         ->orwhere([['date', 'like', '%' . $this->search . '%'], ['user_id', '=', auth()->id()]]);
                 })
                 ->latest()
-                ->paginate(10)
+                ->paginate(10);
+        }
+
+        return view('car.response', [
+            'conformances' => $confomances
         ]);
     }
 }

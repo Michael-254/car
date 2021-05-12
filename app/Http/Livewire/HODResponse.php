@@ -26,7 +26,7 @@ class HODResponse extends Component
 
     public function respond($id)
     {
-        $this->received = audits::where('id', $id)->first();
+        $this->received = Audits::where('id', $id)->first();
         $this->dateMade = $this->received->date;
         $this->number = $this->received->number;
         $this->respondent = $this->received->response_id;
@@ -52,6 +52,10 @@ class HODResponse extends Component
 
     public function update()
     {
+        $validatedDate = $this->validate([
+            'decision' => 'required',
+        ]);
+
         $this->received->update([
             'status' => $this->decision, 'hod_date' => Carbon::now()->toDateString(),
             'comment' => $this->HODcomment, 'hod_id' => auth()->id()
