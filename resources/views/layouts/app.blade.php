@@ -22,7 +22,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     @livewireStyles
-    @livewireScripts
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
@@ -447,6 +446,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="{{asset('parent/plugins/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
     <!-- AdminLTE App -->
     <script src="{{asset('parent/dist/js/adminlte.min.js')}}"></script>
+    @stack('js')
+    @livewireScripts
 </body>
 
 </html>

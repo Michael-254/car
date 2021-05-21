@@ -105,7 +105,7 @@
 
                                                 <div class="mt-2 flex space-x-2">
                                                     <div class="flex-1">
-                                                        <label for="disabledSelect" class="text-green-500">Standard && Clause</label>
+                                                        <label for="disabledSelect" class="text-green-500">Reference</label>
                                                         <input name="clause" type="text" value="{{$nonConformance->clause}}" class="w-full py-1 bg-gray-200 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600">
                                                     </div>
                                                     <div class="flex-1">
@@ -120,9 +120,9 @@
 
                                             <div class="rounded border mt-2 py-3 px-4">
                                                 <div>
-                                                    <label for="disabledSelect" class="text-green-500">Auditor's Report</label>
+                                                    <label for="disabledSelect" class="text-green-500">Non Conformance</label>
                                                     <textarea name="report" rows="3" class="w-full bg-gray-200 rounded-lg shadow-sm 
-                                                    focus:outline-none focus:shadow-outline text-gray-600">{{$nonConformance->report}}</textarea>
+                                                    focus:outline-none focus:shadow-outline text-gray-600">{!!$nonConformance->report!!}</textarea>
                                                 </div>
                                             </div>
 

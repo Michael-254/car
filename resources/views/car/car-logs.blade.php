@@ -155,7 +155,7 @@
 
                                                 <div class="mt-2 flex justify-between">
                                                     <div>
-                                                        <label for="disabledSelect" class="text-green-500">Standard && Clause</label>
+                                                        <label for="disabledSelect" class="text-green-500">Reference</label>
                                                         <p class="form-control-static">{{$clause}}</p>
                                                     </div>
 
@@ -164,8 +164,8 @@
 
                                             <div class="rounded border mt-2 py-3 px-4">
                                                 <div>
-                                                    <label for="disabledSelect" class="text-green-500">Auditor's Report</label>
-                                                    <p class="form-control-static">{{$nonconformance}}</p>
+                                                    <label for="disabledSelect" class="text-green-500">Non Conformance</label>
+                                                    <p class="form-control-static">{!!$nonconformance!!}</p>
                                                 </div>
                                             </div>
 

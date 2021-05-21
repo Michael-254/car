@@ -96,7 +96,7 @@
 
                                                 <div class="mt-2 flex space-x-2">
                                                     <div class="flex-1">
-                                                        <label for="disabledSelect" class="text-green-500">Standard && Clause</label>
+                                                        <label for="disabledSelect" class="text-green-500">Reference</label>
                                                         <input wire:model="clause" type="text" class="w-full py-1 bg-gray-200 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600">
                                                         @error('clause') <span class="text-red-500">{{ $message }}</span> @enderror
                                                     </div>
@@ -117,11 +117,11 @@
                                             </div>
 
                                             <div class="rounded border mt-2 py-3 px-4">
-                                                <div>
-                                                    <label for="disabledSelect" class="text-green-500">Auditor's Report</label>
-                                                    <textarea wire:model.defer="report" type="text" rows="3" class="w-full bg-gray-200 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600"></textarea>
-                                                    @error('report') <span class="text-red-500">{{ $message }}</span> @enderror
+                                                <div wire:ignore>
+                                                    <label for="note" class="text-green-500">Non conformance</label>
+                                                    <textarea data-note="@this" id="note" wire:model.defer="report" type="text" rows="3" class="w-full bg-gray-200 rounded-lg shadow-sm focus:outline-none focus:shadow-outline text-gray-600"></textarea>                                                  
                                                 </div>
+                                                @error('report') <span class="text-red-500">{{ $message }}</span> @enderror
                                             </div>
 
                                             <div class="rounded border mt-2 py-3 px-4">
@@ -145,7 +145,7 @@
                                                 Submitting please wait...
                                             </div>
                                             <div class="flex items-center justify-end mt-4">
-                                                <x-button type="submit">
+                                                <x-button id="submit" type="submit">
                                                     Submit
                                                 </x-button>
                                             </div>
@@ -156,6 +156,7 @@
                                 </form>
                             </section>
                         </div>
+
                     </div>
 
 
@@ -165,4 +166,20 @@
         </div>
         <!-- /.content -->
     </div>
+    @push('js')
+    <script src="https://cdn.ckeditor.com/ckeditor5/25.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor
+            .create(document.querySelector('#note'))
+            .then(editor => {
+                document.querySelector('#submit').addEventListener('click', () => {
+                    let note = $('#note').data('note');
+                    eval(note).set('report', editor.getData());
+                });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    </script>
+    @endpush
 </div>
