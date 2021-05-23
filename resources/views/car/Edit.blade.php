@@ -121,7 +121,7 @@
                                             <div class="rounded border mt-2 py-3 px-4">
                                                 <div>
                                                     <label for="disabledSelect" class="text-green-500">Non Conformance</label>
-                                                    <textarea name="report" rows="3" class="w-full bg-gray-200 rounded-lg shadow-sm 
+                                                    <textarea name="report" id="editor" rows="3" class="w-full bg-gray-200 rounded-lg shadow-sm 
                                                     focus:outline-none focus:shadow-outline text-gray-600">{!!$nonConformance->report!!}</textarea>
                                                 </div>
                                             </div>
@@ -176,3 +176,13 @@
 
 
 @endsection
+@push('js')
+<script src="https://cdn.ckeditor.com/ckeditor5/25.0.0/classic/ckeditor.js"></script>
+<script>
+    ClassicEditor
+        .create(document.querySelector('#editor'))
+        .catch(error => {
+            console.error(error);
+        });
+</script>
+@endpush
