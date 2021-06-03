@@ -7,11 +7,13 @@ use App\Models\FollowUpdate;
 use App\Models\User;
 use Carbon\Carbon;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
 class FollowUp extends Component
 {
     use WithPagination;
+    use WithFileUploads;
 
     public $data = 0;
     public $dateMade, $number, $checkbox, $auditor, $auditee, $site, $department;
@@ -20,8 +22,8 @@ class FollowUp extends Component
     public $cause, $proposed_solution, $proposed_date, $received;
     public $decision, $HODcomment;
     public $hodName;
-    public $assigned_to,$date_to_monitor,$followDate,$EndfollowDate;
-    public $saying,$followUpdateData;
+    public $assigned_to, $date_to_monitor, $followDate, $EndfollowDate;
+    public $saying, $followUpdateData, $evidence;
 
     public function respond($id)
     {
@@ -62,7 +64,13 @@ class FollowUp extends Component
 
     public function remove($id)
     {
-        FollowUpdate::findOrFail($id)->delete();
+        $Follow_comment =  FollowUpdate::findOrFail($id);
+        $filename = $Follow_comment->file;
+        $path = storage_path('app/public/images/' . $filename);
+        if ($path) {
+          unlink($path);
+        }
+        $Follow_comment->delete();
         $this->reset();
         session()->flash('message', 'Deleted');
     }
@@ -73,7 +81,15 @@ class FollowUp extends Component
             'saying' => 'required',
         ]);
 
-        FollowUpdate::create($validated + ['user_id' => auth()->id(),'audit_id' => $this->report_id]);
+        $givenfollowup = FollowUpdate::create($validated + ['user_id' => auth()->id(), 'audit_id' => $this->report_id]);
+
+        if ($this->evidence != '') {
+            $name = $this->evidence->getClientOriginalName();
+            $moved = $this->evidence->storeAs('public/images', $name);
+            $givenfollowup->update([
+                'file' => $name,
+            ]);
+        }
         $this->reset();
         session()->flash('message', 'Commented');
     }
@@ -81,7 +97,7 @@ class FollowUp extends Component
     public function render()
     {
         return view('livewire.follow-up', [
-            'conformances' => Audits::where([['status', '=', 'follow up'],['followup_id', '=',auth()->id()]])
+            'conformances' => Audits::where([['status', '=', 'follow up'], ['followup_id', '=', auth()->id()]])
                 ->latest()
                 ->paginate(10),
         ]);

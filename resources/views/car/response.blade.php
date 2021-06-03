@@ -3,10 +3,16 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <h5 class="m-0 text-green-500  text-lg">Respond to a Non-conformance</h5>
                 </div><!-- /.col -->
-                <div class="col-sm-6">
+                <div class="col-sm-4 flex justify-center">
+                    <svg class="mt-0.5 stroke-current h-9 w-9 animate-spin text-gray-400" wire:loading="wire:loading" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                </div>
+                <div class="col-sm-4">
                     <ol class="breadcrumb float-sm-right text-sm">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active">Non-conformance Response</li>
@@ -81,7 +87,7 @@
                                 </div>
                                 <a href="{{route('edit',$report_id)}}" class="items-center px-3 py-2 bg-yellow-500 border  rounded-md  text-xs text-white hover:bg-yellow-800 focus:outline-none 
                                 focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150" type="submit">Amend</a>
-                                @if($status == 'pending')
+                                @if($status == 'pending' || $status == 'HOD declined')
                                 <button data-toggle="modal" data-target="#updateModal" class="items-center px-3 py-2 bg-blue-500 border  rounded-md  text-xs 
                                     text-white hover:bg-blue-800 focus:outline-none focus:border-gray-900
                                     focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150">
@@ -284,7 +290,7 @@
                                                 Submitting Response...
                                             </div>
 
-                                            @if($status == 'pending')
+                                            @if($status == 'pending' || $status == 'HOD declined')
                                             <div class="mt-2 flex justify-end">
                                                 <a wire:click="update" class="items-center px-3 py-2 bg-black border  rounded-md  text-xs cursor-pointer
                                                 text-white hover:bg-green-500 focus:outline-none focus:border-gray-900

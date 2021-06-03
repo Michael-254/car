@@ -12,6 +12,7 @@ use App\Http\Livewire\ViewTasks;
 use App\Http\Livewire\ViewYearPlan;
 use App\Http\Livewire\YearlyPlan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -87,11 +88,12 @@ Route::middleware(['auth'])->group(function () {
     });
     //MY Non-conformances
     Route::get('/Home', MyOwnNonConform::class)->name('home');
-    //file
+    //Non-Conformance file
     Route::get('/View/{id}/file', [App\Http\Controllers\AuditController::class, 'file'])->name('view.file');
+    //Follow file
+    Route::get('/View/{id}/image', [App\Http\Controllers\AuditController::class, 'image'])->name('view.image');
     //NonId Nonconformance
     Route::get('/Non-confomance-NonID', NonIdNonconformance::class)->name('non.IDconform');
 });
-
 
 require __DIR__ . '/auth.php';

@@ -3,10 +3,16 @@
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     <h5 class="m-0 text-green-500  text-lg">My Assigned CAR to Follow-up</h5>
                 </div><!-- /.col -->
-                <div class="col-sm-6">
+                <div class="col-sm-4 flex justify-center">
+                    <svg class="mt-0.5 stroke-current h-9 w-9 animate-spin text-gray-400" wire:loading="wire:loading" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                </div>
+                <div class="col-sm-4">
                     <ol class="breadcrumb float-sm-right text-sm">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
                         <li class="breadcrumb-item active">CAR Follow-up</li>
@@ -234,18 +240,26 @@
                                                 </div>
                                             </div>
 
-                                            <div class="mt-2 flex space-x-2 rounded border py-3 px-4">
+                                            <div class="mt-2 border rounded-md py-3 px-4">
                                                 <textarea wire:model.defer="saying" class="w-full bg-gray-200" placeholder="Type your Observations here" rows="2"></textarea>
+                                            </div>
+                                            <div class="mt-1">
+                                                <input type="file" wire:model="evidence" class="cursor-pointer inine-flex justify-between items-center focus:outline-none border py-2 px-4  rounded-lg shadow-sm text-left text-gray-600 bg-white hover:bg-blue-200 font-medium">
                                             </div>
 
                                             <div class="mt-2 rounded border py-3 px-4">
                                                 <Span class="text-green-500 font-bold">My Observations</span>
                                                 @forelse($followUpdateData as $follow)
                                                 <div class="flex justify-between">
-                                                    {{$loop->iteration}}
-                                                    <span class="w-9/12 ml-1">{{$follow->saying}}</span>
-                                                    <span class="w-2/12">{{$follow->created_at->format('d-m-Y')}}</span>
-                                                    <i onclick="confirm('Warning! if you delete this,All Weekly plans related to it will be deleted too') || event.stopImmediatePropagation()" wire:click="remove({{$follow->id}})" class="fas fa-trash mt-1 cursor-pointer text-red-500"></i>
+                                                    <div class="flex w-7/12">
+                                                        {{$loop->iteration}}
+                                                        <span class="ml-1">{{$follow->saying}}</span>
+                                                    </div>
+                                                    <div class="flex space-x-1">
+                                                        <a href="{{route('view.image',$follow->id)}}" target="_blank">{{$follow->file}}</a>
+                                                        <span>{{$follow->created_at->format('d-m-Y')}}</span>
+                                                        <i onclick="confirm('Warning! if you delete this,All Weekly plans related to it will be deleted too') || event.stopImmediatePropagation()" wire:click="remove({{$follow->id}})" class="fas fa-trash mt-1 cursor-pointer text-red-500"></i>
+                                                    </div>
                                                 </div>
                                                 @empty
                                                 <p class="text-red-500">No Observations recorded yet</p>

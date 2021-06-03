@@ -9,5 +9,5 @@ class FollowUpdate extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'audit_id', 'saying', 'user_id',];
+    protected $fillable = [ 'audit_id', 'saying', 'user_id','file'];
 }
