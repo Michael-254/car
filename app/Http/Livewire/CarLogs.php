@@ -11,6 +11,7 @@ use Livewire\WithPagination;
 class CarLogs extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $data = 0;
     public $dateMade, $number, $checkbox, $auditor, $auditee, $site, $department;
@@ -101,7 +102,7 @@ class CarLogs extends Component
                     $query->Where('site', 'like', '%' . $this->filterSite . '%');
                 })
                 ->latest()
-                ->paginate(10),
+                ->paginate(9),
             'Users' => User::all(),
         ]);
     }

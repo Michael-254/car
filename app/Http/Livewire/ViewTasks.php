@@ -11,6 +11,7 @@ use Livewire\WithPagination;
 class ViewTasks extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $taskview = false;
     public $selectedActivity,$selectedId;
@@ -52,7 +53,7 @@ class ViewTasks extends Component
             ->when($this->filterSite != '', function($query) {
                 $query->Where('site', 'like', '%'.$this->filterSite.'%');
             })
-            ->paginate(10),
+            ->paginate(8),
             'Users' => User::all(),
         ]);
     }

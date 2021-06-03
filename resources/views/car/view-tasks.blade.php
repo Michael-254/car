@@ -59,7 +59,7 @@
                                 <thead wire:loading.delay.class="opacity-50" class="text-green-900">
                                     <tr>
                                         <th>Plan for</th>
-                                        <th style="width: 35%;">Activity</th>
+                                        <th>Activity</th>
                                         <th>Assigned to</th>
                                         <th>Site</th>
                                         <th>Inspected</th>
@@ -95,7 +95,7 @@
                                 @endforeach
                                 </tbody>
                             </table>
-                            <div>
+                            <div class="flex justify-end">
                                 {{$tasks->links()}}
                             </div>
 
