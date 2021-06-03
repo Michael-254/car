@@ -3,7 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Mail\HODNotify;
-use App\Models\audits;
+use App\Models\Audits;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
@@ -13,6 +13,7 @@ use Livewire\WithPagination;
 class Response extends Component
 {
     use WithPagination;
+    protected $paginationTheme = 'bootstrap';
 
     public $search = "";
     public $data = 0;
@@ -25,7 +26,7 @@ class Response extends Component
 
     public function respond($id)
     {
-        $this->received = audits::where('id', $id)->first();
+        $this->received = Audits::where('id', $id)->first();
         $this->dateMade = $this->received->date;
         $this->number = $this->received->number;
         $this->respondent = $this->received->response_id;
@@ -71,7 +72,7 @@ class Response extends Component
             'proposed_date' => 'required',
         ]);
         if ($this->report_id) {
-            $store = audits::find($this->report_id);
+            $store = Audits::find($this->report_id);
             $store->responses()->Create([
                 'cause' => $this->cause,
                 'proposed_solution' => $this->proposed_solution,
@@ -89,22 +90,22 @@ class Response extends Component
     public function render()
     {
         if (auth()->user()->RA) {
-            $confomances = audits::latest()
+            $confomances = Audits::latest()
                 ->when($this->search != '', function ($query) {
                     $query->where('auditee', 'like', '%' . $this->search . '%')
                         ->orwhere('number', 'like', '%' . $this->search . '%')
                         ->orwhere('date', 'like', '%' . $this->search . '%');
                 })
-                ->paginate(10);
+                ->paginate(9);
         } else {
-            $confomances = audits::where('user_id', '=', auth()->id())
+            $confomances = Audits::where('user_id', '=', auth()->id())
                 ->when($this->search != '', function ($query) {
                     $query->where([['auditee', 'like', '%' . $this->search . '%'], ['user_id', '=', auth()->id()]])
                         ->orwhere([['number', 'like', '%' . $this->search . '%'], ['user_id', '=', auth()->id()]])
                         ->orwhere([['date', 'like', '%' . $this->search . '%'], ['user_id', '=', auth()->id()]]);
                 })
                 ->latest()
-                ->paginate(10);
+                ->paginate(9);
         }
 
         return view('car.response', [

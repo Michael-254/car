@@ -76,7 +76,7 @@
                                 @endif
                                 </tbody>
                             </table>
-                            <div class="mt-2">
+                            <div class="mt-2 flex justify-end">
                                 {{$conformances->links()}}
                             </div>
 
