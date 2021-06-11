@@ -87,9 +87,7 @@ class CarLogs extends Component
         return view('car.car-logs', [
             'conformances' => Audits::where('status', '!=', 'closed')
                 ->when($this->search != '', function ($query) {
-                    $query->where('auditee', 'like', '%' . $this->search . '%')
-                        ->orwhere('auditor', 'like', '%' . $this->search . '%')
-                        ->orwhere('number', 'like', '%' . $this->search . '%')
+                    $query->where('number', 'like', '%' . $this->search . '%')
                         ->orwhere('date', 'like', '%' . $this->search . '%')
                         ->orwhere('status', 'like', '%' . $this->search . '%');
                 })
