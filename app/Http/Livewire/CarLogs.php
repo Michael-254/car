@@ -90,7 +90,8 @@ class CarLogs extends Component
                     $query->where('auditee', 'like', '%' . $this->search . '%')
                         ->orwhere('auditor', 'like', '%' . $this->search . '%')
                         ->orwhere('number', 'like', '%' . $this->search . '%')
-                        ->orwhere('date', 'like', '%' . $this->search . '%');
+                        ->orwhere('date', 'like', '%' . $this->search . '%')
+                        ->orwhere('status', 'like', '%' . $this->search . '%');
                 })
                 ->when($this->filterAuditor != '', function ($query) {
                     $query->Where('auditor', 'like', '%' . $this->filterAuditor . '%');
